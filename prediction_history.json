@@ -1,0 +1,2263 @@
+[
+  {
+    "timestamp": "2025-11-10T11:47:23.861115",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8303457311212601,
+    "confidence": 0.6606914622425202,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T11:50:07.579663",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8303457311212601,
+    "confidence": 0.6606914622425202,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:38.536511",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 95.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 80.0,
+      "BMI": 22.5,
+      "DiabetesPedigreeFunction": 0.3,
+      "Age": 25.0
+    },
+    "prediction": 0,
+    "probability": 0.03890749165457337,
+    "confidence": 0.9221850166908533,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:41.060757",
+    "input": {
+      "Pregnancies": 5.0,
+      "Glucose": 180.0,
+      "BloodPressure": 85.0,
+      "SkinThickness": 30.0,
+      "Insulin": 150.0,
+      "BMI": 35.5,
+      "DiabetesPedigreeFunction": 0.8,
+      "Age": 45.0
+    },
+    "prediction": 1,
+    "probability": 0.9367619610239106,
+    "confidence": 0.8735239220478213,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:43.167500",
+    "input": {
+      "Pregnancies": 3.0,
+      "Glucose": 125.0,
+      "BloodPressure": 80.0,
+      "SkinThickness": 25.0,
+      "Insulin": 100.0,
+      "BMI": 28.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 35.0
+    },
+    "prediction": 0,
+    "probability": 0.07345103326665255,
+    "confidence": 0.8530979334666949,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:45.283619",
+    "input": {
+      "Pregnancies": 8.0,
+      "Glucose": 140.0,
+      "BloodPressure": 75.0,
+      "SkinThickness": 28.0,
+      "Insulin": 120.0,
+      "BMI": 32.0,
+      "DiabetesPedigreeFunction": 0.6,
+      "Age": 32.0
+    },
+    "prediction": 1,
+    "probability": 0.6446796564811438,
+    "confidence": 0.28935931296228756,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:47.403282",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 110.0,
+      "BloodPressure": 68.0,
+      "SkinThickness": 22.0,
+      "Insulin": 85.0,
+      "BMI": 24.0,
+      "DiabetesPedigreeFunction": 1.2,
+      "Age": 21.0
+    },
+    "prediction": 0,
+    "probability": 0.055324188169975315,
+    "confidence": 0.8893516236600494,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:49.556433",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 100.0,
+      "BloodPressure": 72.0,
+      "SkinThickness": 20.0,
+      "Insulin": 75.0,
+      "BMI": 25.5,
+      "DiabetesPedigreeFunction": 0.4,
+      "Age": 65.0
+    },
+    "prediction": 0,
+    "probability": 0.05212744993198974,
+    "confidence": 0.8957451001360205,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:51.680276",
+    "input": {
+      "Pregnancies": 4.0,
+      "Glucose": 195.0,
+      "BloodPressure": 95.0,
+      "SkinThickness": 40.0,
+      "Insulin": 200.0,
+      "BMI": 42.0,
+      "DiabetesPedigreeFunction": 0.9,
+      "Age": 50.0
+    },
+    "prediction": 1,
+    "probability": 0.9189090086047492,
+    "confidence": 0.8378180172094984,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:53.784072",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 85.0,
+      "BloodPressure": 65.0,
+      "SkinThickness": 15.0,
+      "Insulin": 60.0,
+      "BMI": 19.5,
+      "DiabetesPedigreeFunction": 0.2,
+      "Age": 28.0
+    },
+    "prediction": 0,
+    "probability": 0.037952422483187226,
+    "confidence": 0.9240951550336256,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:55.905031",
+    "input": {
+      "Pregnancies": 2.0,
+      "Glucose": 115.0,
+      "BloodPressure": 78.0,
+      "SkinThickness": 23.0,
+      "Insulin": 90.0,
+      "BMI": 27.5,
+      "DiabetesPedigreeFunction": 0.45,
+      "Age": 40.0
+    },
+    "prediction": 0,
+    "probability": 0.12042405174442976,
+    "confidence": 0.7591518965111405,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T15:48:58.041401",
+    "input": {
+      "Pregnancies": 3.0,
+      "Glucose": 130.0,
+      "BloodPressure": 82.0,
+      "SkinThickness": 32.0,
+      "Insulin": 250.0,
+      "BMI": 33.0,
+      "DiabetesPedigreeFunction": 0.7,
+      "Age": 42.0
+    },
+    "prediction": 1,
+    "probability": 0.6345836640888571,
+    "confidence": 0.26916732817771427,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:05:52.398150",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8303457311212601,
+    "confidence": 0.6606914622425202,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:17:34.820379",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8303457311212601,
+    "confidence": 0.6606914622425202,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:18:14.438949",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 32.0
+    },
+    "prediction": 1,
+    "probability": 0.8315121419155443,
+    "confidence": 0.6630242838310887,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:18:23.102250",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 23.2,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 32.0
+    },
+    "prediction": 0,
+    "probability": 0.32119004422100134,
+    "confidence": 0.3576199115579973,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:18:38.827191",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 23.2,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 23.0
+    },
+    "prediction": 0,
+    "probability": 0.07209633429191356,
+    "confidence": 0.8558073314161729,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:18:53.165112",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 23.2,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 38.0
+    },
+    "prediction": 0,
+    "probability": 0.1290416157554311,
+    "confidence": 0.7419167684891378,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:18:57.652979",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 24.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 38.0
+    },
+    "prediction": 0,
+    "probability": 0.22415006821361672,
+    "confidence": 0.5516998635727666,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:19:02.972424",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 24.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 38.0
+    },
+    "prediction": 0,
+    "probability": 0.1290560376610724,
+    "confidence": 0.7418879246778551,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:19:18.081439",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 24.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 47.0
+    },
+    "prediction": 0,
+    "probability": 0.13154164820678582,
+    "confidence": 0.7369167035864284,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:19:31.493369",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 24.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 29.0
+    },
+    "prediction": 0,
+    "probability": 0.14046027581295867,
+    "confidence": 0.7190794483740827,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:19:36.338961",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 24.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 23.0
+    },
+    "prediction": 0,
+    "probability": 0.05402886115527352,
+    "confidence": 0.891942277689453,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:19:56.009560",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 24.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 34.0
+    },
+    "prediction": 0,
+    "probability": 0.2266467016387726,
+    "confidence": 0.5467065967224548,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:20:03.280509",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 26.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 34.0
+    },
+    "prediction": 1,
+    "probability": 0.5116308259595773,
+    "confidence": 0.023261651919154636,
+    "model_version": "2025-11-09 13:56:34"
+  },
+  {
+    "timestamp": "2025-11-10T16:21:09.382999",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 26.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 34.0
+    },
+    "prediction": 1,
+    "probability": 0.5126183809452952,
+    "confidence": 0.02523676189059043,
+    "model_version": "2025-11-10 16:20:41"
+  },
+  {
+    "timestamp": "2025-11-10T16:24:11.297161",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 109.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 26.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 34.0
+    },
+    "prediction": 0,
+    "probability": 0.48098074206525265,
+    "confidence": 0.03803851586949469,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:24:21.835185",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 109.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 26.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 27.0
+    },
+    "prediction": 0,
+    "probability": 0.08964966937159909,
+    "confidence": 0.8207006612568019,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:24:26.846455",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 109.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 91.0,
+      "BMI": 26.7,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.40834850914666476,
+    "confidence": 0.18330298170667048,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:25:51.558821",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9266209884070212,
+    "confidence": 0.8532419768140425,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:25:57.839293",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 21.0
+    },
+    "prediction": 0,
+    "probability": 0.07320701481638989,
+    "confidence": 0.8535859703672202,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:26:01.746115",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 27.0
+    },
+    "prediction": 0,
+    "probability": 0.45823115033126943,
+    "confidence": 0.08353769933746114,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:26:21.864999",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9266209884070212,
+    "confidence": 0.8532419768140425,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:26:40.478264",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9266209884070212,
+    "confidence": 0.8532419768140425,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:27:23.634983",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9266209884070212,
+    "confidence": 0.8532419768140425,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:27:48.247557",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9266209884070212,
+    "confidence": 0.8532419768140425,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:27:53.885677",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 26.0
+    },
+    "prediction": 0,
+    "probability": 0.3551683314063875,
+    "confidence": 0.28966333718722503,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:28:37.026255",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9266209884070212,
+    "confidence": 0.8532419768140425,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:28:41.276970",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 24.0
+    },
+    "prediction": 0,
+    "probability": 0.3152220138364332,
+    "confidence": 0.36955597232713355,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2025-11-10T16:28:44.822370",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 27.0
+    },
+    "prediction": 0,
+    "probability": 0.45823115033126943,
+    "confidence": 0.08353769933746114,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2026-03-09T12:59:20.938163",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9265726873871157,
+    "confidence": 0.8531453747742315,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2026-03-09T13:46:23.996144",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9265726873871157,
+    "confidence": 0.8531453747742315,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2026-03-09T15:37:59.044131",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9265726873871157,
+    "confidence": 0.8531453747742315,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2026-03-09T15:38:17.354854",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.922083972689647,
+    "confidence": 0.8441679453792941,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2026-03-09T15:38:43.379636",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9265726873871157,
+    "confidence": 0.8531453747742315,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2026-03-09T15:39:40.798592",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.922083972689647,
+    "confidence": 0.8441679453792941,
+    "model_version": "2025-11-10 16:21:50"
+  },
+  {
+    "timestamp": "2026-03-09T15:40:22.193500",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.922083972689647,
+    "confidence": 0.8441679453792941,
+    "model_version": "2026-03-09 15:40:05"
+  },
+  {
+    "timestamp": "2026-03-09T15:54:37.811926",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9384170347690883,
+    "confidence": 0.8768340695381767,
+    "model_version": "2026-03-09 15:40:05"
+  },
+  {
+    "timestamp": "2026-03-09T15:55:05.093207",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 96.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.11509961645747928,
+    "confidence": 0.7698007670850414,
+    "model_version": "2026-03-09 15:40:05"
+  },
+  {
+    "timestamp": "2026-03-09T15:56:04.948538",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 96.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.19179778815678816,
+    "confidence": 0.6164044236864237,
+    "model_version": "2026-03-09 15:55:51"
+  },
+  {
+    "timestamp": "2026-03-09T15:56:56.017026",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 96.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.07017318599964509,
+    "confidence": 0.8596536280007099,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:39.692968",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 95.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 80.0,
+      "BMI": 22.5,
+      "DiabetesPedigreeFunction": 0.3,
+      "Age": 25.0
+    },
+    "prediction": 0,
+    "probability": 0.036991437238933715,
+    "confidence": 0.9260171255221326,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:42.688164",
+    "input": {
+      "Pregnancies": 5.0,
+      "Glucose": 180.0,
+      "BloodPressure": 85.0,
+      "SkinThickness": 30.0,
+      "Insulin": 150.0,
+      "BMI": 35.5,
+      "DiabetesPedigreeFunction": 0.8,
+      "Age": 45.0
+    },
+    "prediction": 1,
+    "probability": 0.9467778730621284,
+    "confidence": 0.8935557461242567,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:44.811460",
+    "input": {
+      "Pregnancies": 3.0,
+      "Glucose": 125.0,
+      "BloodPressure": 80.0,
+      "SkinThickness": 25.0,
+      "Insulin": 100.0,
+      "BMI": 28.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 35.0
+    },
+    "prediction": 0,
+    "probability": 0.04771382501729104,
+    "confidence": 0.9045723499654179,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:46.930147",
+    "input": {
+      "Pregnancies": 8.0,
+      "Glucose": 140.0,
+      "BloodPressure": 75.0,
+      "SkinThickness": 28.0,
+      "Insulin": 120.0,
+      "BMI": 32.0,
+      "DiabetesPedigreeFunction": 0.6,
+      "Age": 32.0
+    },
+    "prediction": 1,
+    "probability": 0.6353151288339508,
+    "confidence": 0.2706302576679016,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:49.046338",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 110.0,
+      "BloodPressure": 68.0,
+      "SkinThickness": 22.0,
+      "Insulin": 85.0,
+      "BMI": 24.0,
+      "DiabetesPedigreeFunction": 1.2,
+      "Age": 21.0
+    },
+    "prediction": 0,
+    "probability": 0.05339872036663189,
+    "confidence": 0.8932025592667362,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:51.157324",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 100.0,
+      "BloodPressure": 72.0,
+      "SkinThickness": 20.0,
+      "Insulin": 75.0,
+      "BMI": 25.5,
+      "DiabetesPedigreeFunction": 0.4,
+      "Age": 65.0
+    },
+    "prediction": 0,
+    "probability": 0.043652240387992175,
+    "confidence": 0.9126955192240156,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:53.294908",
+    "input": {
+      "Pregnancies": 4.0,
+      "Glucose": 195.0,
+      "BloodPressure": 95.0,
+      "SkinThickness": 40.0,
+      "Insulin": 200.0,
+      "BMI": 42.0,
+      "DiabetesPedigreeFunction": 0.9,
+      "Age": 50.0
+    },
+    "prediction": 1,
+    "probability": 0.9283100259567865,
+    "confidence": 0.8566200519135729,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:55.396281",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 85.0,
+      "BloodPressure": 65.0,
+      "SkinThickness": 15.0,
+      "Insulin": 60.0,
+      "BMI": 19.5,
+      "DiabetesPedigreeFunction": 0.2,
+      "Age": 28.0
+    },
+    "prediction": 0,
+    "probability": 0.0393210044881514,
+    "confidence": 0.9213579910236972,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:57.540954",
+    "input": {
+      "Pregnancies": 2.0,
+      "Glucose": 115.0,
+      "BloodPressure": 78.0,
+      "SkinThickness": 23.0,
+      "Insulin": 90.0,
+      "BMI": 27.5,
+      "DiabetesPedigreeFunction": 0.45,
+      "Age": 40.0
+    },
+    "prediction": 0,
+    "probability": 0.0840556625400476,
+    "confidence": 0.8318886749199048,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:47:59.655909",
+    "input": {
+      "Pregnancies": 3.0,
+      "Glucose": 130.0,
+      "BloodPressure": 82.0,
+      "SkinThickness": 32.0,
+      "Insulin": 250.0,
+      "BMI": 33.0,
+      "DiabetesPedigreeFunction": 0.7,
+      "Age": 42.0
+    },
+    "prediction": 0,
+    "probability": 0.39942645572015456,
+    "confidence": 0.20114708855969088,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:01.792404",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 0.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8493673156162982,
+    "confidence": 0.6987346312325964,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:05.941034",
+    "input": {
+      "Pregnancies": 17.0,
+      "Glucose": 199.0,
+      "BloodPressure": 122.0,
+      "SkinThickness": 99.0,
+      "Insulin": 846.0,
+      "BMI": 67.1,
+      "DiabetesPedigreeFunction": 2.42,
+      "Age": 81.0
+    },
+    "prediction": 0,
+    "probability": 0.44675057027847087,
+    "confidence": 0.10649885944305826,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:10.100248",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 95.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 80.0,
+      "BMI": 22.5,
+      "DiabetesPedigreeFunction": 0.3,
+      "Age": 25.0
+    },
+    "prediction": 0,
+    "probability": 0.036991437238933715,
+    "confidence": 0.9260171255221326,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:12.247544",
+    "input": {
+      "Pregnancies": 5.0,
+      "Glucose": 180.0,
+      "BloodPressure": 85.0,
+      "SkinThickness": 30.0,
+      "Insulin": 150.0,
+      "BMI": 35.5,
+      "DiabetesPedigreeFunction": 0.8,
+      "Age": 45.0
+    },
+    "prediction": 1,
+    "probability": 0.9467778730621284,
+    "confidence": 0.8935557461242567,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:14.355804",
+    "input": {
+      "Pregnancies": 3.0,
+      "Glucose": 125.0,
+      "BloodPressure": 80.0,
+      "SkinThickness": 25.0,
+      "Insulin": 100.0,
+      "BMI": 28.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 35.0
+    },
+    "prediction": 0,
+    "probability": 0.04771382501729104,
+    "confidence": 0.9045723499654179,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:16.486690",
+    "input": {
+      "Pregnancies": 8.0,
+      "Glucose": 140.0,
+      "BloodPressure": 75.0,
+      "SkinThickness": 28.0,
+      "Insulin": 120.0,
+      "BMI": 32.0,
+      "DiabetesPedigreeFunction": 0.6,
+      "Age": 32.0
+    },
+    "prediction": 1,
+    "probability": 0.6353151288339508,
+    "confidence": 0.2706302576679016,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:18.599718",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 110.0,
+      "BloodPressure": 68.0,
+      "SkinThickness": 22.0,
+      "Insulin": 85.0,
+      "BMI": 24.0,
+      "DiabetesPedigreeFunction": 1.2,
+      "Age": 21.0
+    },
+    "prediction": 0,
+    "probability": 0.053398720366631874,
+    "confidence": 0.8932025592667363,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:20.790828",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 100.0,
+      "BloodPressure": 72.0,
+      "SkinThickness": 20.0,
+      "Insulin": 75.0,
+      "BMI": 25.5,
+      "DiabetesPedigreeFunction": 0.4,
+      "Age": 65.0
+    },
+    "prediction": 0,
+    "probability": 0.043652240387992175,
+    "confidence": 0.9126955192240156,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:22.919977",
+    "input": {
+      "Pregnancies": 4.0,
+      "Glucose": 195.0,
+      "BloodPressure": 95.0,
+      "SkinThickness": 40.0,
+      "Insulin": 200.0,
+      "BMI": 42.0,
+      "DiabetesPedigreeFunction": 0.9,
+      "Age": 50.0
+    },
+    "prediction": 1,
+    "probability": 0.9283100259567865,
+    "confidence": 0.8566200519135729,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:25.054648",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 85.0,
+      "BloodPressure": 65.0,
+      "SkinThickness": 15.0,
+      "Insulin": 60.0,
+      "BMI": 19.5,
+      "DiabetesPedigreeFunction": 0.2,
+      "Age": 28.0
+    },
+    "prediction": 0,
+    "probability": 0.0393210044881514,
+    "confidence": 0.9213579910236972,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:27.153909",
+    "input": {
+      "Pregnancies": 2.0,
+      "Glucose": 115.0,
+      "BloodPressure": 78.0,
+      "SkinThickness": 23.0,
+      "Insulin": 90.0,
+      "BMI": 27.5,
+      "DiabetesPedigreeFunction": 0.45,
+      "Age": 40.0
+    },
+    "prediction": 0,
+    "probability": 0.0840556625400476,
+    "confidence": 0.8318886749199048,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:48:29.264935",
+    "input": {
+      "Pregnancies": 3.0,
+      "Glucose": 130.0,
+      "BloodPressure": 82.0,
+      "SkinThickness": 32.0,
+      "Insulin": 250.0,
+      "BMI": 33.0,
+      "DiabetesPedigreeFunction": 0.7,
+      "Age": 42.0
+    },
+    "prediction": 0,
+    "probability": 0.39942645572015456,
+    "confidence": 0.20114708855969088,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:51:05.900874",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9248667586337146,
+    "confidence": 0.8497335172674292,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:51:46.843816",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9248667586337146,
+    "confidence": 0.8497335172674292,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:52:17.240230",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9248667586337146,
+    "confidence": 0.8497335172674292,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:52:33.605921",
+    "input": {
+      "Pregnancies": 2.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8583078282863124,
+    "confidence": 0.7166156565726247,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:52:50.451061",
+    "input": {
+      "Pregnancies": 2.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 26.2,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8931146016492211,
+    "confidence": 0.7862292032984421,
+    "model_version": "2026-03-09 15:56:43"
+  },
+  {
+    "timestamp": "2026-03-12T12:53:53.782302",
+    "input": {
+      "Pregnancies": 2.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 26.2,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9292195787150255,
+    "confidence": 0.858439157430051,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:01:40.525811",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9189396825963034,
+    "confidence": 0.8378793651926069,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:01:47.813370",
+    "input": {
+      "Pregnancies": 4.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9118357637669038,
+    "confidence": 0.8236715275338076,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:01:56.161688",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 28.1,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9227687699142219,
+    "confidence": 0.8455375398284437,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:02:01.954417",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 95.0,
+      "BMI": 28.1,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.858368183538278,
+    "confidence": 0.7167363670765561,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:02:06.639050",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 95.0,
+      "BMI": 28.1,
+      "DiabetesPedigreeFunction": 0.509,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8599903965472377,
+    "confidence": 0.7199807930944755,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:02:09.878852",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 95.0,
+      "BMI": 28.1,
+      "DiabetesPedigreeFunction": 0.509,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.8599903965472375,
+    "confidence": 0.719980793094475,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:02:14.199359",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 95.0,
+      "BMI": 28.1,
+      "DiabetesPedigreeFunction": 0.509,
+      "Age": 39.0
+    },
+    "prediction": 0,
+    "probability": 0.13810101087379315,
+    "confidence": 0.7237979782524138,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:02:16.654945",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 95.0,
+      "BMI": 28.1,
+      "DiabetesPedigreeFunction": 0.509,
+      "Age": 39.0
+    },
+    "prediction": 0,
+    "probability": 0.13810101087379315,
+    "confidence": 0.7237979782524138,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:02:22.202158",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 95.0,
+      "BMI": 28.1,
+      "DiabetesPedigreeFunction": 0.509,
+      "Age": 64.0
+    },
+    "prediction": 0,
+    "probability": 0.09081625657387431,
+    "confidence": 0.8183674868522514,
+    "model_version": "2026-03-12 12:53:46"
+  },
+  {
+    "timestamp": "2026-03-12T13:09:15.357262",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9052742347102086,
+    "confidence": 0.8105484694204173,
+    "model_version": "2026-03-12 13:03:20"
+  },
+  {
+    "timestamp": "2026-03-12T13:09:44.319011",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9052742347102085,
+    "confidence": 0.810548469420417,
+    "model_version": "2026-03-12 13:03:20"
+  },
+  {
+    "timestamp": "2026-03-12T13:27:38.692516",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-12T13:29:35.364853",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-12T13:29:43.402429",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-12T13:31:49.449830",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-12T13:33:39.315401",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-18T19:50:15.172745",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-18T19:50:21.866170",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-18T19:50:27.457705",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-20T11:47:09.856873",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-20T11:47:39.000675",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-03-20T11:48:34.701431",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 24.9,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.6346431043985425,
+    "confidence": 0.2692862087970851,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-04-03T01:31:12.365888",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9275130524923512,
+    "confidence": 0.8550261049847023,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-04-03T01:31:30.353002",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 113.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.6820980442186713,
+    "confidence": 0.3641960884373425,
+    "model_version": "2026-03-12 13:11:54"
+  },
+  {
+    "timestamp": "2026-04-03T01:33:16.030331",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 113.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9137836671642852,
+    "confidence": 0.8275673343285703,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T01:40:55.848832",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 100.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.38069083591542857,
+    "confidence": 0.23861832816914286,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T01:42:17.528306",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T01:42:38.824316",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 60.0,
+      "BloodPressure": 99.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.2199998307308562,
+    "confidence": 0.5600003385382877,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T01:43:24.055625",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 60.0,
+      "BloodPressure": 99.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 2.441,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.6399139813842456,
+    "confidence": 0.2798279627684912,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T01:43:36.153441",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 60.0,
+      "BloodPressure": 99.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 1.082,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.2109530919400714,
+    "confidence": 0.5780938161198572,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:01:21.785155",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:05:21.738755",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:05:48.117878",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:06:03.213804",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 39.9,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.49478102511402616,
+    "confidence": 0.010437949771947674,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:11:45.831079",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:16:24.672181",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:19:01.405557",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:19:42.761101",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.941549205400918,
+    "confidence": 0.883098410801836,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:19:49.047196",
+    "input": {
+      "Pregnancies": 0.0,
+      "Glucose": 59.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.34452379170107333,
+    "confidence": 0.31095241659785333,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:24:34.966994",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:36:56.537626",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 88.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 22.8,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.08835210602140518,
+    "confidence": 0.8232957879571896,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-03T02:39:21.088505",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:02:15.692084",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:06:17.443116",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:13:37.172241",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:17:40.892203",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:18:42.071655",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:18:52.051167",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 20.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.1398979127881187,
+    "confidence": 0.7202041744237626,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:25:48.754792",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:38:31.955583",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 21.6,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.3009156346549767,
+    "confidence": 0.39816873069004655,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:46:30.139928",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 25.0,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 1,
+    "probability": 0.9414478013545441,
+    "confidence": 0.8828956027090882,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-06T00:47:22.008024",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 106.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 20.9,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.10462207832358972,
+    "confidence": 0.7907558433528206,
+    "model_version": "2026-04-03 01:32:29"
+  },
+  {
+    "timestamp": "2026-04-08T12:34:10.504150",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 23.1,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.2646718650742046,
+    "confidence": 0.4706562698515908,
+    "model_version": "2026-04-06 00:48:05"
+  },
+  {
+    "timestamp": "2026-04-08T12:41:21.549673",
+    "input": {
+      "Pregnancies": 1.0,
+      "Glucose": 120.0,
+      "BloodPressure": 70.0,
+      "SkinThickness": 20.0,
+      "Insulin": 79.0,
+      "BMI": 21.9,
+      "DiabetesPedigreeFunction": 0.5,
+      "Age": 33.0
+    },
+    "prediction": 0,
+    "probability": 0.1887089633097988,
+    "confidence": 0.6225820733804024,
+    "model_version": "2026-04-06 00:48:05"
+  }
+]

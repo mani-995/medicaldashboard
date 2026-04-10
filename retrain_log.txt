@@ -1,0 +1,178 @@
+============================================================
+[INFO] IMPROVED MEDICAL DISEASE PREDICTION SYSTEM
+============================================================
+[INFO] With Advanced Feature Engineering & Stacking Ensemble
+============================================================
+[SUCCESS] Data loaded successfully from: c:\Users\HP\Desktop\project 2\diabetes.csv
+[INFO] Dataset shape: (800, 9)
+
+[INFO] First 5 rows:
+   Pregnancies  Glucose  BloodPressure  ...  DiabetesPedigreeFunction   Age  Outcome
+0          6.0    148.0           72.0  ...                     0.627  50.0        1
+1          1.0     85.0           66.0  ...                     0.351  31.0        0
+2          8.0    183.0           64.0  ...                     0.672  32.0        1
+3          1.0     89.0           66.0  ...                     0.167  21.0        0
+4          0.0    137.0           40.0  ...                     2.288  33.0        1
+
+[5 rows x 9 columns]
+
+[INFO] Data Info:
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 800 entries, 0 to 799
+Data columns (total 9 columns):
+ #   Column                    Non-Null Count  Dtype  
+---  ------                    --------------  -----  
+ 0   Pregnancies               800 non-null    float64
+ 1   Glucose                   800 non-null    float64
+ 2   BloodPressure             800 non-null    float64
+ 3   SkinThickness             800 non-null    float64
+ 4   Insulin                   800 non-null    float64
+ 5   BMI                       800 non-null    float64
+ 6   DiabetesPedigreeFunction  800 non-null    float64
+ 7   Age                       800 non-null    float64
+ 8   Outcome                   800 non-null    int64  
+dtypes: float64(8), int64(1)
+memory usage: 56.4 KB
+
+[WARNING] Missing values (zeros in relevant columns):
+   Glucose: 5 zeros
+   BloodPressure: 35 zeros
+   SkinThickness: 227 zeros
+   Insulin: 374 zeros
+   BMI: 11 zeros
+
+[INFO] Starting ADVANCED preprocessing with improved features...
+[INFO] Creating ADVANCED features...
+[SUCCESS] Preprocessing complete! Shape: (800, 48)
+[INFO] Total features created: 43
+[SUCCESS] Z-score statistics saved as 'zscore_stats.pkl'
+
+[INFO] Performing advanced clustering with 3 clusters...
+[INFO] Cluster analysis:
+
+   Cluster 0: 440 patients | Diabetes Rate: 17.7%
+
+   Cluster 1: 154 patients | Diabetes Rate: 71.4%
+
+   Cluster 2: 206 patients | Diabetes Rate: 47.1%
+[SUCCESS] KMeans model saved as 'kmeans_model.pkl'
+
+[INFO] Training IMPROVED STACKING ENSEMBLE MODEL...
+============================================================
+[INFO] Applying ADASYN for intelligent oversampling...
+   Original: 640 -> Resampled: 851
+
+[INFO] Training optimized base models:
+   [1] Random Forest (Fast)...
+   [2] XGBoost (Fast)...
+   [3] Gradient Boosting (Fast)...
+   [INFO] Using 3 fast models (skipping AdaBoost, LightGBM, CatBoost for speed)
+
+[INFO] Creating Stacking Ensemble with regularized meta-learner...
+
+[INFO] Training stacking ensemble (this may take several minutes)...
+   Please wait...
+
+[INFO] Extracting feature importance...
+   [SUCCESS] Extracted from rf
+   [SUCCESS] Extracted from xgb
+   [SUCCESS] Extracted from gb
+
+[INFO] Top 15 Most Important Features:
+    1. Insulin_Squared                         : 0.1402
+    2. Insulin_Zscore                          : 0.1370
+    3. Insulin                                 : 0.0745
+    4. Log_Insulin                             : 0.0663
+    5. Insulin_Resistance_Index                : 0.0422
+    6. SkinThickness                           : 0.0382
+    7. Metabolic_Risk_Score                    : 0.0343
+    8. DiabetesPedigreeFunction                : 0.0329
+    9. Glucose_Age_Interaction                 : 0.0278
+   10. BMI_Age_Interaction                     : 0.0237
+   11. Glucose_BMI_Interaction                 : 0.0224
+   12. Insulin_BMI_Ratio                       : 0.0213
+   13. Cardiovascular_Risk                     : 0.0199
+   14. Glucose_Insulin_Ratio                   : 0.0191
+   15. Age_Squared                             : 0.0175
+
+[SUCCESS] Feature importance extracted successfully!
+
+[INFO] Performing quick 3-Fold Cross-Validation...
+   [INFO] Set SKIP_CV=True in code to skip this step for fastest training
+   [INFO] Computing CV accuracy...
+   CV Accuracy:  0.8931 (+/- 0.0632)
+
+[SUCCESS] Improved stacking ensemble training complete!
+
+============================================================
+[INFO] IMPROVED MODEL EVALUATION
+============================================================
+
+[INFO] Performance Metrics:
+   Accuracy:  0.8688 (86.88%)
+   Precision: 0.8000
+   Recall:    0.8421
+   F1-Score:  0.8205
+   ROC-AUC:   0.9601
+
+[INFO] Confusion Matrix:
+   True Negatives:  91
+   False Positives: 12
+   False Negatives: 9
+   True Positives:  48
+
+[INFO] Detailed Classification Report:
+              precision    recall  f1-score   support
+
+ No Diabetes       0.91      0.88      0.90       103
+    Diabetes       0.80      0.84      0.82        57
+
+    accuracy                           0.87       160
+   macro avg       0.85      0.86      0.86       160
+weighted avg       0.87      0.87      0.87       160
+
+
+[INFO] Model pipeline saved as 'diabetes_model_pipeline.pkl'
+[INFO] Performance metrics saved as 'model_performance.pkl'
+
+============================================================
+[INFO] FINAL IMPROVED MODEL PERFORMANCE SUMMARY
+============================================================
+[SUCCESS] Accuracy:  86.88%
+[SUCCESS] Precision: 0.8
+[SUCCESS] Recall:    0.8421
+[SUCCESS] F1-Score:  0.8205
+[SUCCESS] ROC-AUC:   0.9601
+[SUCCESS] Features:  43 features with importance scores
+============================================================
+
+[INFO] Saving cluster statistics...
+   Cluster 0: 440 patients, 17.7% diabetes rate
+   Cluster 1: 154 patients, 71.4% diabetes rate
+   Cluster 2: 206 patients, 47.1% diabetes rate
+[SUCCESS] Cluster statistics saved as 'cluster_statistics.pkl'
+
+============================================================
+[SUCCESS] ANALYSIS COMPLETE!
+============================================================
+
+[INFO] Files Created:
+   [SUCCESS] diabetes_model_pipeline.pkl
+   [SUCCESS] model_performance.pkl
+   [SUCCESS] cluster_statistics.pkl
+   [SUCCESS] kmeans_model.pkl
+   [SUCCESS] zscore_stats.pkl
+
+[INFO] Expected Improvements:
+   - More advanced features (40+ features)
+   - ADASYN oversampling (better than SMOTE)
+   - Stacking ensemble (better than voting)
+   - Optimized hyperparameters
+   - 10-fold cross-validation
+
+[INFO] Expected Accuracy: 90-94%
+
+[INFO] Next Step:
+   Run: python app.py
+   Then open: http://localhost:5000
+============================================================

@@ -1,0 +1,3271 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MedAI - Advanced Medical Analytics</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/plotly.js/2.26.0/plotly.min.js"></script>
+    <!-- Pretext: DOM-free text measurement & layout -->
+    <script src="https://unpkg.com/@chenglou/pretext"></script>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,700;0,9..40,900;1,9..40,400&family=Cormorant+Garamond:ital,wght@1,400;1,500;1,600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            /* Warwick Acoustics Color System */
+            --bg-dark: #0C121A;
+            --bg-light: #F5F5F0;
+            --bg-card: #ffffff;
+            --text-primary: #0C121A;
+            --text-light: #ffffff;
+            --text-secondary: #4A4A4A;
+            --text-muted: rgba(255,255,255,0.55);
+            --accent: #00a855;
+            --accent-dim: #008844;
+            --accent-brand: #F05A28;
+            --border: rgba(0,0,0,0.08);
+            --border-light: rgba(255,255,255,0.1);
+            --glow: rgba(100,160,220,0.15);
+
+            /* Warwick Shape System */
+            --radius-pill: 800px;
+            --radius-section: 52px;
+            --radius-card: 22px;
+            --radius-image: 28px;
+
+            /* Fonts */
+            --font-sans: 'DM Sans', -apple-system, sans-serif;
+            --font-serif: 'Cormorant Garamond', Georgia, serif;
+        }
+
+        body {
+            font-family: var(--font-sans);
+            background: var(--bg-light);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Scroll-triggered fade-in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(32px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Navigation — Warwick transparent → solid on scroll */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            padding: 28px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: transparent;
+            transition: background 0.4s ease, backdrop-filter 0.4s ease, border-color 0.4s ease;
+            border-bottom: 1px solid transparent;
+        }
+
+        nav.scrolled {
+            background: rgba(12, 18, 26, 0.92);
+            backdrop-filter: blur(24px);
+            border-bottom-color: var(--border-light);
+        }
+
+        .logo {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--accent);
+            border-radius: 50%;
+            display: inline-block;
+            animation: pulse-dot 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.7); }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 40px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.55);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.85rem;
+            transition: color 0.3s ease;
+            letter-spacing: 0.06em;
+        }
+
+        .nav-links a:hover {
+            color: #ffffff;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 72px 100px 72px;
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-dark);
+            border-radius: 0 0 var(--radius-section) var(--radius-section);
+        }
+
+        /* Background video wrapper */
+        .hero-video-bg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            border-radius: 0 0 var(--radius-section) var(--radius-section);
+            overflow: hidden;
+        }
+
+        .hero-video-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            display: block;
+        }
+
+        .hero-video-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                linear-gradient(105deg,
+                    rgba(12,18,26,0.97) 0%,
+                    rgba(12,18,26,0.85) 40%,
+                    rgba(12,18,26,0.4) 70%,
+                    rgba(12,18,26,0.15) 100%),
+                linear-gradient(to bottom,
+                    rgba(12,18,26,0.4) 0%,
+                    transparent 20%,
+                    transparent 80%,
+                    rgba(12,18,26,0.9) 100%);
+        }
+
+        /* Warwick atmospheric blue-cyan glow */
+        .hero-video-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, var(--glow) 0%, transparent 55%);
+            z-index: 1;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-eyebrow {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 32px;
+        }
+        .hero-eyebrow-line {
+            width: 36px;
+            height: 2px;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+        .hero-eyebrow span {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        /* Warwick dual-font hero heading */
+        .hero h1 {
+            font-size: clamp(3.5rem, 7.5vw, 8rem);
+            font-weight: 900;
+            line-height: 0.95;
+            margin-bottom: 36px;
+            letter-spacing: -0.03em;
+            color: var(--text-light);
+            font-family: var(--font-sans);
+        }
+
+        /* Warwick serif emphasis — the key design move */
+        .hero h1 .serif-accent {
+            font-family: var(--font-serif);
+            font-weight: 500;
+            font-style: italic;
+            letter-spacing: 0.01em;
+            color: var(--text-light);
+            display: block;
+            font-size: 1.1em;
+        }
+
+        .hero h1 .highlight {
+            color: var(--accent);
+            display: block;
+        }
+
+        .hero-description {
+            max-width: 520px;
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 52px;
+            line-height: 1.85;
+            font-weight: 300;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border-light);
+        }
+        .hero-stat-item {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+        .hero-stat-value {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -0.03em;
+        }
+        .hero-stat-value span { color: var(--accent); }
+        .hero-stat-label {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .cta-group {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        /* Warwick pill buttons */
+        .cta-button {
+            padding: 16px 40px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            border-radius: var(--radius-pill);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            letter-spacing: 0.06em;
+            font-family: var(--font-sans);
+        }
+
+        .cta-primary {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        .cta-primary:hover {
+            background: var(--accent-dim);
+            transform: scale(1.02) translateY(-1px);
+        }
+
+        .cta-secondary {
+            background: transparent;
+            color: #ffffff;
+            border: 1.5px solid rgba(255,255,255,0.3);
+        }
+
+        .cta-secondary:hover {
+            border-color: rgba(255,255,255,0.75);
+            transform: scale(1.02);
+        }
+
+        /* Section Styling — Warwick alternating dark/light */
+        .section {
+            padding: 120px 72px;
+            position: relative;
+        }
+
+        .section-dark {
+            background: var(--bg-dark);
+            color: var(--text-light);
+            border-radius: var(--radius-section);
+            margin: 0 -1px;
+        }
+
+        .section-dark .section-title { color: var(--text-light); }
+        .section-dark .section-subtitle { color: var(--text-muted); }
+
+        .section-header {
+            margin-bottom: 72px;
+        }
+
+        .section-title {
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 20px;
+            letter-spacing: -0.03em;
+            font-family: var(--font-sans);
+        }
+
+        /* Warwick mixed-font section title */
+        .section-title .serif-word {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-weight: 500;
+            letter-spacing: 0;
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            font-weight: 400;
+        }
+
+        /* Status Banner — Warwick card style */
+        .status-banner {
+            max-width: 1320px;
+            margin: 0 auto;
+            background: var(--bg-card);
+            border-radius: var(--radius-card);
+            padding: 56px;
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 64px;
+            align-items: center;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.06);
+        }
+
+        .status-info h3 {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            letter-spacing: -0.02em;
+        }
+
+        .status-metrics {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 28px;
+            margin-top: 28px;
+        }
+
+        .status-metric span {
+            display: block;
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+
+        .status-metric small {
+            color: var(--text-secondary);
+            font-size: 0.78rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(0,0,0,0.08);
+            margin-top: 28px;
+            overflow: hidden;
+            border-radius: var(--radius-pill);
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--accent);
+            transition: width 0.6s ease;
+            border-radius: var(--radius-pill);
+        }
+
+        /* Warwick pill button — retrain */
+        .retrain-btn {
+            width: 100%;
+            padding: 20px 32px;
+            background: var(--bg-dark);
+            color: #ffffff;
+            border: none;
+            border-radius: var(--radius-pill);
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.08em;
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+        }
+
+        .retrain-btn:hover:not(:disabled) {
+            background: #1a2535;
+            transform: scale(1.02);
+        }
+
+        .retrain-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        /* Stats Grid — Warwick card tiles */
+        .stats-grid {
+            max-width: 1320px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 52px 36px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border-radius: var(--radius-card);
+            box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: 900;
+            margin-bottom: 12px;
+            color: var(--accent);
+            letter-spacing: -0.03em;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Feature Grid — Warwick cards */
+        .feature-grid {
+            max-width: 1320px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .feature-card {
+            background: rgba(255,255,255,0.06);
+            padding: 48px 36px;
+            transition: all 0.3s ease;
+            border-radius: var(--radius-card);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .feature-card:hover {
+            background: rgba(255,255,255,0.1);
+            transform: translateY(-4px);
+        }
+
+        .feature-number {
+            font-size: 0.7rem;
+            color: var(--accent);
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 14px;
+            letter-spacing: -0.02em;
+            color: var(--text-light);
+        }
+
+        .feature-description {
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-size: 0.92rem;
+            font-weight: 300;
+        }
+
+        /* Tabs — Warwick pill tab system */
+        .tabs-container {
+            max-width: 1320px;
+            margin: 0 auto;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 24px;
+            background: rgba(0,0,0,0.07);
+            padding: 8px;
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(0,0,0,0.1);
+            width: fit-content;
+        }
+
+        .tab-button {
+            padding: 14px 28px;
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 0.08em;
+            border-radius: var(--radius-pill);
+            font-family: var(--font-sans);
+            text-transform: uppercase;
+        }
+
+        .tab-button:hover {
+            color: var(--text-primary);
+            background: rgba(0,0,0,0.06);
+        }
+
+        .tab-button.active {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+        }
+
+        .tab-content {
+            display: none;
+            background: var(--bg-card);
+            border-radius: var(--radius-card);
+            padding: 56px;
+            box-shadow: 0 4px 32px rgba(0,0,0,0.08);
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-bottom: 28px;
+            letter-spacing: -0.02em;
+        }
+
+        /* Form Styles — Warwick pill inputs */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .form-group {
+            background: var(--bg-light);
+            padding: 28px 22px;
+            border-radius: var(--radius-card);
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 700;
+            margin-bottom: 10px;
+            color: var(--text-secondary);
+            font-size: 0.72rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 14px 20px;
+            background: var(--bg-card);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-pill);
+            color: var(--text-primary);
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: var(--font-sans);
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(0,168,85,0.1);
+        }
+
+        /* Parameter Info Hints */
+        .param-info {
+            margin-top: 12px;
+            padding: 10px 14px;
+            background: rgba(0,0,0,0.03);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .param-info .param-desc {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            line-height: 1.5;
+            margin-bottom: 6px;
+        }
+
+        .param-info .param-range {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.68rem;
+            font-weight: 700;
+            color: var(--accent);
+            letter-spacing: 0.03em;
+        }
+
+        .param-info .param-range::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Result Card */
+        .result-card {
+            background: var(--bg-light);
+            border: 1.5px solid var(--border);
+            border-radius: var(--radius-card);
+            padding: 52px;
+            margin-top: 40px;
+            text-align: center;
+        }
+
+        .result-card h4 {
+            font-size: 2.2rem;
+            font-weight: 900;
+            margin-bottom: 28px;
+            letter-spacing: -0.02em;
+        }
+
+        .result-metrics {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 16px;
+            margin-top: 40px;
+        }
+
+        .metric {
+            background: var(--bg-card);
+            padding: 36px 20px;
+            border-radius: var(--radius-card);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.04);
+        }
+
+        .metric-value {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -0.02em;
+        }
+
+        .metric-label {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            margin-top: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        /* Feedback Section */
+        .feedback-section {
+            margin-top: 40px;
+            padding: 40px;
+            background: var(--bg-light);
+            border-radius: var(--radius-card);
+        }
+
+        .feedback-section h4 {
+            font-size: 1.3rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            letter-spacing: -0.01em;
+        }
+
+        .feedback-buttons {
+            display: flex;
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        /* Warwick pill feedback buttons */
+        .feedback-btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: var(--radius-pill);
+            font-weight: 700;
+            font-size: 0.82rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-family: var(--font-sans);
+        }
+
+        .feedback-yes {
+            background: var(--accent);
+            color: #ffffff;
+        }
+
+        .feedback-no {
+            background: var(--bg-card);
+            color: var(--text-primary);
+            border: 1.5px solid var(--border);
+        }
+
+        .feedback-btn:hover {
+            transform: scale(1.02);
+        }
+
+        /* Visualization Container */
+        .viz-container {
+            background: var(--bg-light);
+            border-radius: var(--radius-card);
+            padding: 32px;
+            min-height: 600px;
+            position: relative;
+            border: 1px solid var(--border);
+        }
+
+        /* Loading state */
+        .viz-loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        /* Toast — Warwick pill style */
+        .toast {
+            position: fixed;
+            bottom: 40px;
+            right: 40px;
+            background: var(--bg-dark);
+            color: #ffffff;
+            padding: 18px 32px;
+            z-index: 2000;
+            animation: slideInUp 0.3s ease-out;
+            font-weight: 600;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            border-radius: var(--radius-pill);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 100px 24px 64px 24px;
+                align-items: flex-end;
+                padding-bottom: 80px;
+            }
+
+            .hero h1 {
+                font-size: clamp(2.8rem, 12vw, 5rem);
+            }
+
+            .hero-stats {
+                gap: 20px;
+                flex-wrap: wrap;
+            }
+
+            .hero-stat-value {
+                font-size: 1.3rem;
+            }
+        }
+
+        @keyframes slideInUp {
+            from {
+                opacity: 0;
+                transform: translateY(100px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .toast.error {
+            background: #cc1144;
+            color: white;
+        }
+
+        .toast.warning {
+            background: #e08000;
+            color: white;
+        }
+
+        /* Loading */
+        .loading {
+            display: inline-block;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(0,0,0,0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            nav { padding: 20px 32px; }
+            .hero { padding: 100px 40px 80px; }
+            .section { padding: 80px 40px; }
+            .stats-grid, .feature-grid { grid-template-columns: repeat(2, 1fr); }
+            .form-grid, .result-metrics { grid-template-columns: repeat(2, 1fr); }
+            .status-banner { grid-template-columns: 1fr; padding: 40px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding: 100px 24px 64px; border-radius: 0 0 32px 32px; }
+            .hero h1 { font-size: clamp(2.5rem, 10vw, 4rem); }
+            .hero-stats { gap: 20px; flex-wrap: wrap; }
+            .stats-grid, .feature-grid, .form-grid, .result-metrics { grid-template-columns: 1fr; }
+            .tab-buttons { flex-direction: column; width: 100%; border-radius: 20px; }
+            .tab-content { padding: 28px; }
+            .section { padding: 64px 24px; }
+            .section-dark { border-radius: 32px; }
+        }
+
+        /* ── Sliders + Range Coloring ─────────────────────────────────── */
+        .field-slider {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 100%;
+            margin-top: 10px;
+            height: 4px;
+            cursor: pointer;
+            background: transparent;
+            outline: none;
+            border: none;
+        }
+        .field-slider::-webkit-slider-runnable-track {
+            height: 4px;
+            border-radius: 2px;
+            background: linear-gradient(
+                to right,
+                var(--accent) 0%,
+                var(--accent) var(--pct, 0%),
+                #cccccc var(--pct, 0%),
+                #cccccc 100%
+            );
+        }
+        .field-slider::-moz-range-track {
+            height: 4px;
+            border-radius: 2px;
+            background: #cccccc;
+        }
+        .field-slider::-moz-range-progress {
+            height: 4px;
+            border-radius: 2px;
+            background: var(--accent);
+        }
+        .field-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+            margin-top: -6px;
+            cursor: pointer;
+        }
+        .field-slider::-moz-range-thumb {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            background: var(--accent);
+            border: 2px solid #fff;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.25);
+            cursor: pointer;
+        }
+
+        .form-group input[type="number"].in-range {
+            border-color: #00a855;
+            box-shadow: 0 0 0 3px rgba(0,168,85,0.08);
+        }
+
+        .form-group input[type="number"].out-of-range {
+            border-color: #cc1144;
+            box-shadow: 0 0 0 3px rgba(204,17,68,0.06);
+        }
+
+        /* ── Risk Gauge ───────────────────────────────────────────────── */
+        .risk-gauge-wrap {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 16px 0 24px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 28px;
+        }
+
+        /* ── Health Recommendations ───────────────────────────────────── */
+        .recommendations {
+            margin-top: 28px;
+            padding: 28px 32px;
+            background: var(--bg-light);
+            border-radius: var(--radius-card);
+            text-align: left;
+        }
+
+        .recommendations h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+
+        .rec-item {
+            display: flex;
+            gap: 16px;
+            padding: 14px 0;
+            border-bottom: 1px solid var(--border);
+            align-items: flex-start;
+        }
+
+        .rec-item:last-child { border-bottom: none; padding-bottom: 0; }
+
+        .rec-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            font-size: 13px;
+            font-weight: 900;
+            margin-top: 2px;
+        }
+
+        .rec-icon.ok      { background: rgba(0,168,85,0.12);  color: #00a855; }
+        .rec-icon.warn    { background: rgba(224,128,0,0.12);  color: #e08000; }
+        .rec-icon.danger  { background: rgba(204,17,68,0.10);  color: #cc1144; }
+
+        .rec-label {
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 5px;
+        }
+
+        .rec-text {
+            font-size: 0.87rem;
+            color: var(--text-secondary);
+            line-height: 1.65;
+        }
+
+        /* ── Pretext: Smart label truncation ───────────────────────────── */
+        .pt-label {
+            display: block;
+            overflow: hidden;
+            white-space: nowrap;
+            position: relative;
+        }
+        .pt-label[data-truncated="true"]::after {
+            content: '…';
+            position: absolute;
+            right: 0;
+            background: inherit;
+            padding-left: 2px;
+        }
+        .pt-label[data-truncated="true"] {
+            cursor: help;
+        }
+
+        /* ── Pretext: Virtual patient rows ─────────────────────────────── */
+        #ptVirtualList {
+            height: 340px;
+            overflow-y: auto;
+            border-radius: var(--radius-card);
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            position: relative;
+        }
+        #ptVirtualList::-webkit-scrollbar { width: 6px; }
+        #ptVirtualList::-webkit-scrollbar-track { background: transparent; }
+        #ptVirtualList::-webkit-scrollbar-thumb { background: rgba(0,0,0,0.12); border-radius: 3px; }
+
+        .pt-vrow {
+            display: grid;
+            grid-template-columns: 40px 1fr 90px 70px 80px 90px;
+            gap: 12px;
+            align-items: center;
+            padding: 12px 20px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.82rem;
+            transition: background 0.15s;
+        }
+        .pt-vrow:hover { background: var(--bg-light); }
+        .pt-vrow-header {
+            background: var(--bg-light);
+            font-size: 0.62rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            position: sticky;
+            top: 0;
+            z-index: 2;
+            border-bottom: 2px solid var(--border);
+        }
+        .pt-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 3px 10px;
+            border-radius: 800px;
+            font-size: 0.62rem;
+            font-weight: 800;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+        .pt-badge-risk   { background: rgba(204,17,68,0.1);  color: #cc1144; }
+        .pt-badge-safe   { background: rgba(0,168,85,0.1);   color: #00a855; }
+
+        /* ── Pretext: Canvas report panel ──────────────────────────────── */
+        #ptReportSection {
+            margin-top: 40px;
+            background: var(--bg-light);
+            border-radius: var(--radius-card);
+            padding: 36px;
+            border: 1px solid var(--border);
+        }
+        #ptReportSection h4 {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+        }
+        #ptReportCanvas {
+            width: 100%;
+            border-radius: 12px;
+            background: #fff;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+            display: block;
+        }
+        .pt-report-dl {
+            margin-top: 16px;
+            display: flex;
+            gap: 12px;
+            justify-content: flex-end;
+        }
+
+        /* ── Pretext: Shrink-wrap balanced stat labels ─────────────────── */
+        .pt-balanced-label {
+            display: block;
+            word-break: break-word;
+            line-height: 1.3;
+        }
+
+        /* ── Pretext: virtual list section ─────────────────────────────── */
+        #ptPatientSection {
+            margin-top: 0;
+            max-width: 1320px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .pt-section-eyebrow {
+            font-size: 0.68rem;
+            font-weight: 700;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+        .pt-section-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: -0.02em;
+            margin-bottom: 6px;
+        }
+        .pt-section-sub {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+        }
+        .pt-list-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+        .pt-list-count {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            letter-spacing: 0.06em;
+        }
+        .pt-perf-badge {
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--accent);
+            background: rgba(0,168,85,0.08);
+            padding: 4px 12px;
+            border-radius: 800px;
+            border: 1px solid rgba(0,168,85,0.2);
+        }
+        /* ── UI Polish: Result card entrance animation ─────────────────── */
+        @keyframes slideUpFade {
+            from { opacity: 0; transform: translateY(28px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes popIn {
+            0%   { opacity: 0; transform: scale(0.88); }
+            70%  { transform: scale(1.03); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .result-card-enter {
+            animation: slideUpFade 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .result-card-enter .metric {
+            opacity: 0;
+            animation: popIn 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+        }
+        .result-card-enter .metric:nth-child(1) { animation-delay: 0.18s; }
+        .result-card-enter .metric:nth-child(2) { animation-delay: 0.26s; }
+        .result-card-enter .metric:nth-child(3) { animation-delay: 0.34s; }
+        .result-card-enter .metric:nth-child(4) { animation-delay: 0.42s; }
+        .result-card-enter .recommendations {
+            animation: slideUpFade 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.45s both;
+        }
+        .result-card-enter .feedback-section {
+            animation: slideUpFade 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.55s both;
+        }
+        .result-card-enter #ptReportSection {
+            animation: slideUpFade 0.5s cubic-bezier(0.22, 1, 0.36, 1) 0.62s both;
+        }
+
+        /* ── UI Polish: Validation range hint ──────────────────────────── */
+        .range-hint {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            transition: color 0.25s ease;
+        }
+        .range-hint-dot {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            transition: background 0.25s ease;
+        }
+        .range-hint.ok   { color: #00a855; }
+        .range-hint.ok   .range-hint-dot { background: #00a855; }
+        .range-hint.warn { color: #e08000; }
+        .range-hint.warn .range-hint-dot { background: #e08000; }
+        .range-hint.bad  { color: #cc1144; }
+        .range-hint.bad  .range-hint-dot { background: #cc1144; }
+
+        /* ── UI Polish: Empty state for analytics tabs ──────────────────── */
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 480px;
+            gap: 16px;
+            text-align: center;
+            padding: 48px;
+        }
+        .empty-state-icon {
+            width: 64px; height: 64px;
+            border-radius: 20px;
+            background: rgba(0,168,85,0.07);
+            border: 1.5px solid rgba(0,168,85,0.15);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.8rem;
+            margin-bottom: 8px;
+        }
+        .empty-state h4 {
+            font-size: 1rem;
+            font-weight: 800;
+            letter-spacing: -0.01em;
+            color: var(--text-primary);
+            margin: 0;
+        }
+        .empty-state p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            max-width: 320px;
+            line-height: 1.7;
+            margin: 0;
+        }
+        .empty-state-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(0,0,0,0.04);
+            border: 1px solid rgba(0,0,0,0.08);
+            border-radius: 800px;
+            padding: 6px 14px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+        }
+        .empty-state-badge span {
+            width: 6px; height: 6px;
+            border-radius: 50%;
+            background: #cc1144;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        /* ── UI Polish: Retrain button live timer ───────────────────────── */
+        .retrain-timer {
+            display: block;
+            font-size: 0.65rem;
+            font-weight: 400;
+            letter-spacing: 0.06em;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+    </style>
+</head>
+
+<body>
+    <nav id="mainNav">
+        <div class="logo"><span class="logo-dot"></span>MEDAI</div>
+        <ul class="nav-links">
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#features">Features</a></li>
+            <li><a href="#dashboard">Dashboard</a></li>
+            <li><a href="#analysis">Analytics</a></li>
+        </ul>
+    </nav>
+    <section id="hero" class="hero">
+
+        <!-- Full-bleed background video -->
+        <div class="hero-video-bg">
+            <video autoplay loop muted playsinline>
+                <source src="/static/media/medical_bg.mp4" type="video/mp4">
+            </video>
+        </div>
+
+        <!-- Overlaid text content -->
+        <div class="hero-content">
+            <div class="hero-eyebrow">
+                <div class="hero-eyebrow-line"></div>
+                <span>AI-Powered Medical Intelligence</span>
+            </div>
+
+            <h1>
+                <span class="serif-accent">Precision</span>
+                MEDICAL
+                <span class="highlight">ANALYTICS</span>
+            </h1>
+
+            <p class="hero-description">
+                AI-powered diabetes prediction with real-time model retraining,
+                ensemble learning, and advanced 3D visualization. Built for precision healthcare.
+            </p>
+
+            <div class="cta-group">
+                <button class="cta-button cta-primary" onclick="scrollToSection('dashboard')">LAUNCH PLATFORM</button>
+                <button class="cta-button cta-secondary" onclick="scrollToSection('features')">EXPLORE FEATURES</button>
+            </div>
+
+            <div class="hero-stats">
+                <div class="hero-stat-item">
+                    <div class="hero-stat-value" id="heroAccuracy"><span>—</span></div>
+                    <div class="hero-stat-label">Model Accuracy</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-value" id="heroPatients"><span>—</span></div>
+                    <div class="hero-stat-label">Patient Records</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-value"><span>43</span>+</div>
+                    <div class="hero-stat-label">Engineered Features</div>
+                </div>
+                <div class="hero-stat-item">
+                    <div class="hero-stat-value" id="heroRocAuc"><span>—</span></div>
+                    <div class="hero-stat-label">ROC-AUC Score</div>
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <section id="dashboard" class="section fade-in">
+        <div class="status-banner">
+            <div class="status-info">
+                <h3 id="modelStatus">MODEL READY</h3>
+                <div class="status-metrics">
+                    <div class="status-metric">
+                        <span id="newSamples">0</span>
+                        <small>New Samples</small>
+                    </div>
+                    <div class="status-metric">
+                        <span id="threshold">50</span>
+                        <small>Threshold</small>
+                    </div>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <p
+                    style="margin-top: 24px; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                    LAST UPDATE: <span id="lastUpdate">--</span>
+                </p>
+            </div>
+            <div>
+                <button class="retrain-btn" id="retrainBtn" onclick="triggerRetrain()">RETRAIN MODEL</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="section section-dark fade-in">
+        <div class="section-header">
+            <h2 class="section-title">LIVE <span class="serif-word">Metrics</span></h2>
+            <p class="section-subtitle">Real-time model performance analytics</p>
+        </div>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-number" id="totalPatients">--</div>
+                <div class="stat-label">Total Patients</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="accuracy">--</div>
+                <div class="stat-label">Model Accuracy</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="rocAuc">--</div>
+                <div class="stat-label">ROC AUC Score</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="diabetesRate">--</div>
+                <div class="stat-label">Diabetes Rate</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="section section-dark fade-in">
+        <div class="section-header">
+            <h2 class="section-title">CAPABILITIES</h2>
+            <p class="section-subtitle">Advanced machine learning meets clinical precision</p>
+        </div>
+
+        <div class="feature-grid">
+            <div class="feature-card">
+                <div class="feature-number">01</div>
+                <h3 class="feature-title">Ensemble Learning</h3>
+                <p class="feature-description">Stacking ensemble of Random Forest, XGBoost, and Gradient Boosting for
+                    superior accuracy.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">02</div>
+                <h3 class="feature-title">Real-Time Retraining</h3>
+                <p class="feature-description">Model automatically improves with feedback, incorporating new patient
+                    data continuously.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">03</div>
+                <h3 class="feature-title">43+ Features</h3>
+                <p class="feature-description">Advanced feature engineering including metabolic scores and risk indices.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">04</div>
+                <h3 class="feature-title">High Precision</h3>
+                <p class="feature-description">85%+ accuracy with excellent ROC-AUC scores, validated through
+                    cross-validation.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">05</div>
+                <h3 class="feature-title">3D Visualization</h3>
+                <p class="feature-description">Interactive visualizations of patient data across multiple dimensions.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">06</div>
+                <h3 class="feature-title">Cluster Analysis</h3>
+                <p class="feature-description">Patient segmentation into risk groups for targeted insights.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="analysis" class="section fade-in">
+        <div class="section-header">
+            <h2 class="section-title">ANALYTICS</h2>
+        </div>
+
+        <div class="tabs-container">
+            <div class="tab-buttons">
+                <button class="tab-button active" onclick="switchTab('prediction')">PREDICTION</button>
+                <button class="tab-button" onclick="switchTab('featureTab')">FEATURE IMPORTANCE</button>
+                <button class="tab-button" onclick="switchTab('viz3d')">3D VISUALIZATION</button>
+                <button class="tab-button" onclick="switchTab('riskProfile')">RISK PROFILE</button>
+            </div>
+
+            <div id="prediction" class="tab-content active">
+                <h3 class="card-title">PATIENT RISK ASSESSMENT</h3>
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label>Pregnancies</label>
+                        <input type="number" id="pregnancies" value="1" min="0">
+                        <div class="param-info">
+                            <div class="param-desc">Total number of pregnancies you have had, including current.</div>
+                            <div class="param-range">Normal: 0 – 5</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Glucose</label>
+                        <input type="number" id="glucose" value="120" min="0">
+                        <div class="param-info">
+                            <div class="param-desc">Blood sugar level measured after a 2-hour oral glucose tolerance
+                                test (mg/dL).</div>
+                            <div class="param-range">Normal: 70 – 140 mg/dL</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Blood Pressure</label>
+                        <input type="number" id="bloodPressure" value="70" min="0">
+                        <div class="param-info">
+                            <div class="param-desc">Diastolic blood pressure — the bottom number in a BP reading (mm
+                                Hg).</div>
+                            <div class="param-range">Normal: 60 – 80 mm Hg</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Skin Thickness</label>
+                        <input type="number" id="skinThickness" value="20" min="0">
+                        <div class="param-info">
+                            <div class="param-desc">Tricep skin fold thickness, a measure of body fat under the skin
+                                (mm).</div>
+                            <div class="param-range">Normal: 10 – 30 mm</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Insulin</label>
+                        <input type="number" id="insulin" value="79" min="0">
+                        <div class="param-info">
+                            <div class="param-desc">2-hour serum insulin level — how much insulin your body produces
+                                (μU/mL).</div>
+                            <div class="param-range">Normal: 16 – 166 μU/mL</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>BMI</label>
+                        <input type="number" id="bmi" value="25.0" step="0.1">
+                        <div class="param-info">
+                            <div class="param-desc">Body Mass Index — weight (kg) divided by height (m²). Indicates body
+                                fat level.</div>
+                            <div class="param-range">Normal: 18.5 – 24.9 kg/m²</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Pedigree</label>
+                        <input type="number" id="diabetesPedigree" value="0.5" step="0.001">
+                        <div class="param-info">
+                            <div class="param-desc">Family history score — higher values mean stronger family history of
+                                diabetes.</div>
+                            <div class="param-range">Typical: 0.08 – 0.85</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Age</label>
+                        <input type="number" id="age" value="33" min="1">
+                        <div class="param-info">
+                            <div class="param-desc">Your current age in years. Diabetes risk increases after age 45.
+                            </div>
+                            <div class="param-range">Higher risk: 45+ years</div>
+                        </div>
+                    </div>
+                </div>
+
+                <button class="cta-button cta-primary" onclick="analyzePrediction()"
+                    style="width: 100%; padding: 24px;">
+                    ANALYZE RISK
+                </button>
+
+                <div id="resultContainer" style="display: none;"></div>
+            </div>
+
+            <div id="featureTab" class="tab-content">
+                <h3 class="card-title">FEATURE IMPORTANCE</h3>
+                <p style="color:var(--text-secondary);margin-bottom:40px;">
+                    Analysis of 43 health indicators and their impact on diabetes risk predictions.
+                </p>
+                <div class="viz-container" id="featureChart">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📊</div>
+                        <h4>Feature Importance Chart</h4>
+                        <p>Shows which of the 43 engineered features drive the model's predictions. Requires a live Flask server connection.</p>
+                        <div class="empty-state-badge"><span></span>Awaiting server</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="viz3d" class="tab-content">
+                <h3 class="card-title">3D VISUALIZATION</h3>
+                <p style="color:var(--text-secondary);margin-bottom:28px;">
+                    Rotate · zoom · hover — explore how patients cluster across three metabolic dimensions.
+                </p>
+
+                <!-- Axis + filter controls -->
+                <div
+                    style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr auto;gap:12px;margin-bottom:12px;">
+                    <div style="background:var(--bg-light);padding:18px 20px;border-radius:14px;border:1px solid var(--border);">
+                        <div
+                            style="font-size:0.58rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;">
+                            X Axis</div>
+                        <select id="ax3dX" onchange="render3dScatter()"
+                            style="background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text-primary);font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;width:100%;cursor:pointer;padding:4px 0;outline:none;">
+                            <option value="glucose">Glucose (mg/dL)</option>
+                            <option value="bmi">BMI (kg/m²)</option>
+                            <option value="age">Age (years)</option>
+                            <option value="bloodPressure">Blood Pressure</option>
+                            <option value="insulin">Insulin (μU/mL)</option>
+                        </select>
+                    </div>
+                    <div style="background:var(--bg-light);padding:18px 20px;border-radius:14px;border:1px solid var(--border);">
+                        <div
+                            style="font-size:0.58rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;">
+                            Y Axis</div>
+                        <select id="ax3dY" onchange="render3dScatter()"
+                            style="background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text-primary);font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;width:100%;cursor:pointer;padding:4px 0;outline:none;">
+                            <option value="bmi">BMI (kg/m²)</option>
+                            <option value="glucose">Glucose (mg/dL)</option>
+                            <option value="age">Age (years)</option>
+                            <option value="bloodPressure">Blood Pressure</option>
+                            <option value="insulin">Insulin (μU/mL)</option>
+                        </select>
+                    </div>
+                    <div style="background:var(--bg-light);padding:18px 20px;border-radius:14px;border:1px solid var(--border);">
+                        <div
+                            style="font-size:0.58rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;">
+                            Z Axis</div>
+                        <select id="ax3dZ" onchange="render3dScatter()"
+                            style="background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text-primary);font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;width:100%;cursor:pointer;padding:4px 0;outline:none;">
+                            <option value="age">Age (years)</option>
+                            <option value="glucose">Glucose (mg/dL)</option>
+                            <option value="bmi">BMI (kg/m²)</option>
+                            <option value="bloodPressure">Blood Pressure</option>
+                            <option value="insulin">Insulin (μU/mL)</option>
+                        </select>
+                    </div>
+                    <div style="background:var(--bg-light);padding:18px 20px;border-radius:14px;border:1px solid var(--border);">
+                        <div
+                            style="font-size:0.58rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;">
+                            Marker Size</div>
+                        <select id="ax3dSize" onchange="render3dScatter()"
+                            style="background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--text-primary);font-family:'DM Sans',sans-serif;font-size:0.88rem;font-weight:700;width:100%;cursor:pointer;padding:4px 0;outline:none;">
+                            <option value="uniform">Uniform</option>
+                            <option value="insulin">Insulin</option>
+                            <option value="glucose">Glucose</option>
+                            <option value="bmi">BMI</option>
+                        </select>
+                    </div>
+                    <div style="background:var(--bg-light);padding:18px 20px;border-radius:14px;border:1px solid var(--border);display:flex;align-items:flex-end;gap:8px;">
+                        <button onclick="render3dScatter('healthy')" id="btn3dH"
+                            style="padding:8px 18px;background:rgba(0,168,85,0.1);border:1px solid rgba(0,168,85,0.3);color:#00a855;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;cursor:pointer;transition:all 0.2s;border-radius:800px;">HEALTHY</button>
+                        <button onclick="render3dScatter('diabetic')" id="btn3dD"
+                            style="padding:8px 18px;background:rgba(204,17,68,0.08);border:1px solid rgba(204,17,68,0.25);color:#cc1144;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;cursor:pointer;transition:all 0.2s;border-radius:800px;">DIABETIC</button>
+                        <button onclick="render3dScatter('both')" id="btn3dB"
+                            style="padding:8px 18px;background:var(--bg-card);border:1px solid rgba(0,0,0,0.1);color:#4A4A4A;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:700;letter-spacing:0.06em;cursor:pointer;transition:all 0.2s;border-radius:800px;">BOTH</button>
+                    </div>
+                </div>
+
+                <!-- 3D plot -->
+                <div id="scatter3dPlot"
+                    style="background:var(--bg-light);border:1px solid var(--border);height:580px;border-radius:16px;">
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🧬</div>
+                        <h4>3D Patient Scatter</h4>
+                        <p>Interactive 3D clustering of all patient records across glucose, BMI, and age axes. Requires a live Flask server.</p>
+                        <div class="empty-state-badge"><span></span>Awaiting server</div>
+                    </div>
+                </div>
+
+                <!-- Info strip -->
+                <div
+                    style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px;">
+                    <div style="background:var(--bg-card);padding:16px 20px;display:flex;align-items:center;gap:10px;border-radius:14px;">
+                        <span style="width:10px;height:10px;border-radius:50%;background:#00a855;flex-shrink:0;"></span>
+                        <div>
+                            <div style="font-size:0.6rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.1em;">
+                                Healthy</div>
+                            <div style="font-size:0.9rem;font-weight:800;color:#00a855;" id="lbl3dH">—</div>
+                        </div>
+                    </div>
+                    <div style="background:var(--bg-card);padding:16px 20px;display:flex;align-items:center;gap:10px;border-radius:14px;">
+                        <span style="width:10px;height:10px;border-radius:50%;background:#cc1144;flex-shrink:0;"></span>
+                        <div>
+                            <div style="font-size:0.6rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.1em;">
+                                Diabetic</div>
+                            <div style="font-size:0.9rem;font-weight:800;color:#cc1144;" id="lbl3dD">—</div>
+                        </div>
+                    </div>
+                    <div style="background:var(--bg-card);padding:16px 20px;border-radius:14px;">
+                        <div style="font-size:0.6rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.1em;">Tip</div>
+                        <div style="font-size:0.8rem;color:var(--text-secondary);margin-top:2px;">Click legend to toggle groups</div>
+                    </div>
+                    <div style="background:var(--bg-card);padding:16px 20px;border-radius:14px;">
+                        <div style="font-size:0.6rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.1em;">
+                            Interaction</div>
+                        <div style="font-size:0.8rem;color:var(--text-secondary);margin-top:2px;">Drag · Scroll · Hover</div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="riskProfile" class="tab-content">
+                <h3 class="card-title">POPULATION RISK PROFILE</h3>
+                <p style="color: var(--text-secondary); margin-bottom: 40px;">
+                    Comparative analysis of healthy vs diabetic patient populations across key health indicators.
+                </p>
+
+                <!-- ROW 1: Donut (focal point) + 4 stat comparisons side by side -->
+                <div
+                    style="display: grid; grid-template-columns: 380px 1fr; gap: 16px; margin-bottom: 16px;">
+                    <!-- Donut — standalone, generous space -->
+                    <div class="viz-container" id="riskDonut" style="min-height: 380px; padding: 0;">
+                        <div class="empty-state" style="min-height:380px;">
+                            <div class="empty-state-icon">🍩</div>
+                            <h4>Diabetes Distribution</h4>
+                            <p>Healthy vs diabetic split across the patient cohort.</p>
+                            <div class="empty-state-badge"><span></span>Awaiting server</div>
+                        </div>
+                    </div>
+
+                    <!-- Stats: stacked 2×2 to the right -->
+                    <div id="riskStatsGrid"
+                        style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: 16px;">
+                    </div>
+                </div>
+
+                <!-- ROW 2: Three distribution histograms, equal columns -->
+                <div
+                    style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;">
+                    <div class="viz-container" id="riskDist1" style="min-height: 320px; padding: 0;">
+                        <div class="empty-state" style="min-height:320px;">
+                            <div class="empty-state-icon">📈</div>
+                            <h4>Glucose Distribution</h4>
+                            <p>Healthy vs diabetic glucose spread.</p>
+                            <div class="empty-state-badge"><span></span>Awaiting server</div>
+                        </div>
+                    </div>
+                    <div class="viz-container" id="riskDist2" style="min-height: 320px; padding: 0;">
+                        <div class="empty-state" style="min-height:320px;">
+                            <div class="empty-state-icon">📈</div>
+                            <h4>BMI Distribution</h4>
+                            <p>Healthy vs diabetic BMI spread.</p>
+                            <div class="empty-state-badge"><span></span>Awaiting server</div>
+                        </div>
+                    </div>
+                    <div class="viz-container" id="riskDist3" style="min-height: 320px; padding: 0;">
+                        <div class="empty-state" style="min-height:320px;">
+                            <div class="empty-state-icon">📈</div>
+                            <h4>Age Distribution</h4>
+                            <p>Healthy vs diabetic age spread.</p>
+                            <div class="empty-state-badge"><span></span>Awaiting server</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Warwick scroll effects
+        const mainNav = document.getElementById('mainNav');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 60) mainNav.classList.add('scrolled');
+            else mainNav.classList.remove('scrolled');
+        });
+
+        // Ctrl+Enter → Analyze Risk from anywhere on the page
+        window.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+                e.preventDefault();
+                analyzePrediction();
+                document.getElementById('analysis')?.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+
+        // Scroll-triggered fade-in
+        const fadeEls = document.querySelectorAll('.fade-in');
+        const fadeObserver = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); fadeObserver.unobserve(e.target); } });
+        }, { threshold: 0.08 });
+        fadeEls.forEach(el => fadeObserver.observe(el));
+
+        let globalStats = null;
+        let lastPredictionData = null;
+
+        // ── Field config: slider bounds + normal ranges ──────────────────
+        const FIELD_CONFIG = {
+            pregnancies:      { sliderMin: 0,  sliderMax: 17,  step: 1,     normalMin: 0,    normalMax: 5    },
+            glucose:          { sliderMin: 0,  sliderMax: 250, step: 1,     normalMin: 70,   normalMax: 140  },
+            bloodPressure:    { sliderMin: 0,  sliderMax: 130, step: 1,     normalMin: 60,   normalMax: 80   },
+            skinThickness:    { sliderMin: 0,  sliderMax: 100, step: 1,     normalMin: 10,   normalMax: 30   },
+            insulin:          { sliderMin: 0,  sliderMax: 850, step: 1,     normalMin: 16,   normalMax: 166  },
+            bmi:              { sliderMin: 10, sliderMax: 70,  step: 0.1,   normalMin: 18.5, normalMax: 24.9 },
+            diabetesPedigree: { sliderMin: 0,  sliderMax: 2.5, step: 0.001, normalMin: 0.08, normalMax: 0.85 },
+            age:              { sliderMin: 1,  sliderMax: 100, step: 1,     normalMin: 1,    normalMax: 44   }
+        };
+
+        // ── Slider init: inject range inputs + live coloring ─────────────
+        function initSliders() {
+            Object.entries(FIELD_CONFIG).forEach(([id, cfg]) => {
+                const input = document.getElementById(id);
+                if (!input) return;
+
+                const slider = document.createElement('input');
+                slider.type = 'range';
+                slider.className = 'field-slider';
+                slider.min = cfg.sliderMin;
+                slider.max = cfg.sliderMax;
+                slider.step = cfg.step;
+
+                // Use original HTML default values
+                const initVal = input.defaultValue || input.getAttribute('value') || String(cfg.sliderMin);
+                slider.value = initVal;
+
+                input.parentNode.insertBefore(slider, input.nextSibling);
+
+                // ── Range hint pill (validation feedback) ──────────────
+                const hint = document.createElement('div');
+                hint.className = 'range-hint';
+                hint.innerHTML = `<span class="range-hint-dot"></span><span class="range-hint-text"></span>`;
+                input.parentNode.appendChild(hint);
+
+                function updateSliderFill(val) {
+                    const v = parseFloat(val);
+                    const pct = ((v - cfg.sliderMin) / (cfg.sliderMax - cfg.sliderMin)) * 100;
+                    slider.style.setProperty('--pct', Math.max(0, Math.min(100, pct)) + '%');
+                }
+
+                function colorInput(val) {
+                    const v = parseFloat(val);
+                    const inRange = v >= cfg.normalMin && v <= cfg.normalMax;
+                    input.classList.toggle('in-range',    inRange);
+                    input.classList.toggle('out-of-range', !inRange);
+
+                    // Update range hint text
+                    const hintText = hint.querySelector('.range-hint-text');
+                    if (inRange) {
+                        hint.className = 'range-hint ok';
+                        hintText.textContent = 'Within normal range';
+                    } else if (v < cfg.normalMin) {
+                        hint.className = 'range-hint warn';
+                        hintText.textContent = `Below normal (min ${cfg.normalMin})`;
+                    } else {
+                        hint.className = 'range-hint bad';
+                        hintText.textContent = `Above normal (max ${cfg.normalMax})`;
+                    }
+                }
+
+                input.addEventListener('input', () => {
+                    slider.value = input.value;
+                    updateSliderFill(input.value);
+                    colorInput(input.value);
+                });
+                slider.addEventListener('input', () => {
+                    if (id === 'bmi') input.value = parseFloat(slider.value).toFixed(1);
+                    else if (id === 'diabetesPedigree') input.value = parseFloat(slider.value).toFixed(3);
+                    else input.value = slider.value;
+                    updateSliderFill(slider.value);
+                    colorInput(slider.value);
+                });
+                updateSliderFill(initVal);
+                colorInput(initVal);
+            });
+        }
+
+        // ── Health recommendations engine ─────────────────────────────────
+        function getRecommendations(d) {
+            const recs = [];
+
+            if (d.glucose > 140)
+                recs.push({ level:'danger', label:'High Glucose', text:`Glucose at ${d.glucose} mg/dL is above normal. Reducing refined carbohydrates and increasing aerobic activity can meaningfully lower blood sugar levels.` });
+            else if (d.glucose > 100)
+                recs.push({ level:'warn', label:'Borderline Glucose', text:`Glucose at ${d.glucose} mg/dL is slightly elevated. Consider monitoring your carbohydrate intake and scheduling a fasting glucose test.` });
+
+            if (d.bmi > 30)
+                recs.push({ level:'danger', label:'High BMI', text:`BMI of ${d.bmi.toFixed(1)} indicates obesity — a major diabetes risk factor. Even a 5–10% weight reduction can significantly cut your risk.` });
+            else if (d.bmi > 25)
+                recs.push({ level:'warn', label:'Elevated BMI', text:`BMI of ${d.bmi.toFixed(1)} is in the overweight range. Gradual weight reduction through diet and regular exercise is recommended.` });
+
+            if (d.bloodPressure > 90)
+                recs.push({ level:'danger', label:'High Blood Pressure', text:`Diastolic BP of ${d.bloodPressure} mm Hg is elevated. Reducing sodium intake, limiting alcohol, and regular aerobic exercise can help lower it.` });
+            else if (d.bloodPressure > 80)
+                recs.push({ level:'warn', label:'Elevated Blood Pressure', text:`Diastolic BP of ${d.bloodPressure} mm Hg is slightly above normal. Regular monitoring and an active lifestyle are advised.` });
+
+            if (d.insulin > 166)
+                recs.push({ level:'warn', label:'High Insulin', text:`Insulin at ${d.insulin} μU/mL suggests possible insulin resistance. A healthcare provider can confirm with further metabolic testing.` });
+
+            if (d.age >= 45)
+                recs.push({ level:'warn', label:'Age-Related Risk', text:`Diabetes risk increases significantly after age 45. Annual HbA1c screening is recommended for your age group.` });
+
+            if (d.diabetesPedigree > 0.85)
+                recs.push({ level:'warn', label:'Family History', text:`Pedigree score of ${d.diabetesPedigree.toFixed(3)} indicates significant family history. Proactive lifestyle management is especially important.` });
+
+            if (recs.length === 0)
+                recs.push({ level:'ok', label:'All Indicators Normal', text:`Your inputs are within healthy ranges. Maintain a balanced diet, stay physically active, and schedule routine checkups to keep risk low.` });
+
+            return recs;
+        }
+
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function showToast(message, type = 'success') {
+            const toast = document.createElement('div');
+            toast.className = `toast ${type}`;
+            toast.textContent = message;
+            document.body.appendChild(toast);
+            setTimeout(() => toast.remove(), 3000);
+        }
+
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.querySelectorAll('.tab-button').forEach(btn => btn.classList.remove('active'));
+
+            document.getElementById(tabName).classList.add('active');
+            event.target.classList.add('active');
+
+            if (tabName === 'featureTab') loadFeatureImportance();
+            else if (tabName === 'viz3d') load3DVisualization();
+            else if (tabName === 'riskProfile') loadRiskProfile();
+        }
+
+        async function loadStats() {
+            try {
+                const response = await fetch('/stats');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                globalStats = await response.json();
+                updateDashboard(globalStats);
+            } catch (error) {
+                console.error('Error loading stats:', error);
+                showToast('Could not connect to server - check logs', 'error');
+            }
+        }
+        // ── Count-up animation helper ──────────────────────────────────────
+        function countUp(el, target, duration, decimals, suffix) {
+            const start = performance.now();
+            const isNum = typeof target === 'number';
+            if (!isNum) { el.textContent = target; return; }
+            (function step(now) {
+                const p = Math.min((now - start) / duration, 1);
+                const eased = 1 - Math.pow(1 - p, 3); // ease-out cubic
+                const val = target * eased;
+                el.textContent = (decimals > 0 ? val.toFixed(decimals) : Math.round(val)) + (suffix || '');
+                if (p < 1) requestAnimationFrame(step);
+            })(start);
+        }
+
+        function updateDashboard(stats) {
+            // Stat cards — count-up from current displayed value
+            const tp = document.getElementById('totalPatients');
+            const ac = document.getElementById('accuracy');
+            const ra = document.getElementById('rocAuc');
+            const dr = document.getElementById('diabetesRate');
+
+            countUp(tp, stats.total_patients,  900, 0, '');
+            countUp(ac, stats.model_accuracy,  900, 1, '%');
+            countUp(ra, stats.roc_auc,         900, 3, '');
+            countUp(dr, stats.diabetes_rate,   900, 1, '%');
+
+            // Hero stats
+            document.getElementById('heroAccuracy').innerHTML = `<span>${stats.model_accuracy}</span>%`;
+            document.getElementById('heroPatients').innerHTML = `<span>${stats.total_patients}</span>`;
+            document.getElementById('heroRocAuc').innerHTML   = `<span>${stats.roc_auc.toFixed(2)}</span>`;
+            document.getElementById('newSamples').textContent = stats.new_data_count;
+            document.getElementById('threshold').textContent  = stats.retrain_threshold;
+
+            if (stats.last_retrain)
+                document.getElementById('lastUpdate').textContent = stats.last_retrain;
+
+            const progress = (stats.new_data_count / stats.retrain_threshold) * 100;
+            document.getElementById('progressFill').style.width = Math.min(progress, 100) + '%';
+
+            const retrainBtn = document.getElementById('retrainBtn');
+            const statusText = document.getElementById('modelStatus');
+
+            if (stats.retrain_in_progress) {
+                retrainBtn.disabled = true;
+                if (!retrainBtn.dataset.timerStart) {
+                    retrainBtn.dataset.timerStart = Date.now();
+                    retrainBtn.innerHTML = `RETRAINING...<span class="retrain-timer" id="retrainTimer">0s elapsed</span>`;
+                    clearInterval(window._retrainInterval);
+                    window._retrainInterval = setInterval(() => {
+                        const elapsed = Math.round((Date.now() - retrainBtn.dataset.timerStart) / 1000);
+                        const t = document.getElementById('retrainTimer');
+                        if (t) t.textContent = `${elapsed}s elapsed`;
+                    }, 1000);
+                }
+                statusText.textContent = 'MODEL RETRAINING';
+            } else {
+                clearInterval(window._retrainInterval);
+                delete retrainBtn.dataset.timerStart;
+                retrainBtn.disabled = stats.new_data_count === 0;
+                retrainBtn.textContent = 'RETRAIN MODEL';
+                statusText.textContent = 'MODEL READY';
+            }
+        }
+
+        async function analyzePrediction() {
+            const resultContainer = document.getElementById('resultContainer');
+            resultContainer.style.display = 'block';
+            resultContainer.innerHTML = '<div style="text-align: center; padding: 64px;"><div class="loading"></div><p style="margin-top: 24px; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em;">ANALYZING...</p></div>';
+
+            lastPredictionData = {
+                pregnancies: parseFloat(document.getElementById('pregnancies').value),
+                glucose: parseFloat(document.getElementById('glucose').value),
+                bloodPressure: parseFloat(document.getElementById('bloodPressure').value),
+                skinThickness: parseFloat(document.getElementById('skinThickness').value),
+                insulin: parseFloat(document.getElementById('insulin').value),
+                bmi: parseFloat(document.getElementById('bmi').value),
+                diabetesPedigree: parseFloat(document.getElementById('diabetesPedigree').value),
+                age: parseFloat(document.getElementById('age').value)
+            };
+
+            try {
+                const response = await fetch('/predict', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(lastPredictionData)
+                });
+
+                const result = await response.json();
+                const riskLevel  = result.prediction === 1 ? 'HIGH RISK' : 'LOW RISK';
+                const riskColor  = result.prediction === 1 ? '#cc1144' : '#00a855';
+                const gaugeColor = result.probability < 0.3 ? '#00a855' : result.probability < 0.6 ? '#e08000' : '#cc1144';
+                const arcLen     = 345.58; // π × 110 (semicircle r=110)
+
+                const recItems = getRecommendations(lastPredictionData).map(r => `
+                    <div class="rec-item">
+                        <div class="rec-icon ${r.level}">${r.level === 'ok' ? '&#10003;' : r.level === 'warn' ? '!' : '!!'}</div>
+                        <div>
+                            <div class="rec-label" style="color:${r.level === 'ok' ? '#00a855' : r.level === 'warn' ? '#e08000' : '#cc1144'}">${r.label}</div>
+                            <div class="rec-text">${r.text}</div>
+                        </div>
+                    </div>`).join('');
+
+                resultContainer.innerHTML = `
+                    <div class="result-card result-card-enter" style="border-color:${riskColor};border-width:2px;">
+
+                        <!-- Animated gauge -->
+                        <div class="risk-gauge-wrap">
+                            <svg viewBox="0 0 300 165" width="300" height="165" xmlns="http://www.w3.org/2000/svg" style="overflow:visible;">
+                                <!-- Track -->
+                                <path d="M 40,145 A 110,110,0,0,1,260,145" fill="none" stroke="#e8e8e0" stroke-width="16" stroke-linecap="round"/>
+                                <!-- Animated fill arc -->
+                                <path id="gaugeArc"
+                                    d="M 40,145 A 110,110,0,0,1,260,145"
+                                    fill="none"
+                                    stroke="${gaugeColor}"
+                                    stroke-width="16"
+                                    stroke-linecap="round"
+                                    style="stroke-dasharray:${arcLen} ${arcLen+1};stroke-dashoffset:${arcLen};transition:stroke-dashoffset 1.4s cubic-bezier(0.4,0,0.2,1);"/>
+                                <!-- Centre percentage -->
+                                <text id="gaugePctText" x="150" y="122" text-anchor="middle" font-size="44" font-weight="900"
+                                    font-family="DM Sans,sans-serif" fill="${riskColor}">${(result.probability * 100).toFixed(1)}%</text>
+                                <!-- Risk label -->
+                                <text x="150" y="150" text-anchor="middle" font-size="11" font-weight="700"
+                                    font-family="DM Sans,sans-serif" fill="${gaugeColor}" letter-spacing="3">${riskLevel}</text>
+                            </svg>
+                            <p style="color:var(--text-secondary);font-size:0.88rem;text-align:center;margin-top:4px;">
+                                ${result.prediction === 1 ? 'Elevated diabetes risk identified' : 'Low diabetes risk detected'}
+                            </p>
+                        </div>
+
+                        <!-- Metric cards -->
+                        <div class="result-metrics">
+                            <div class="metric">
+                                <div class="metric-value">${(result.probability * 100).toFixed(1)}%</div>
+                                <div class="metric-label">Risk Probability</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">${(result.confidence * 100).toFixed(1)}%</div>
+                                <div class="metric-label">Confidence</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">${result.metabolic_score.toFixed(2)}</div>
+                                <div class="metric-label">Metabolic Score</div>
+                            </div>
+                            <div class="metric">
+                                <div class="metric-value">${result.cluster_name}</div>
+                                <div class="metric-label">Risk Cluster</div>
+                            </div>
+                        </div>
+
+                        <!-- Health recommendations -->
+                        <div class="recommendations">
+                            <h4>HEALTH INSIGHTS</h4>
+                            ${recItems}
+                        </div>
+
+                        <!-- Feedback -->
+                        <div class="feedback-section">
+                            <h4>PROVIDE FEEDBACK</h4>
+                            <p style="color:var(--text-secondary);margin-bottom:16px;">
+                                Help improve the model with actual diagnosis data
+                            </p>
+                            <div class="feedback-buttons">
+                                <button class="feedback-btn feedback-yes" onclick="submitFeedback(1)">CONFIRMED DIABETES</button>
+                                <button class="feedback-btn feedback-no"  onclick="submitFeedback(0)">NO DIABETES</button>
+                            </div>
+                        </div>
+
+                        <!-- Pretext Enhancement 3 & 4: Canvas Patient Report -->
+                        <div id="ptReportSection">
+                            <h4>PATIENT REPORT</h4>
+                            <canvas id="ptReportCanvas" height="340"></canvas>
+                            <div class="pt-report-dl">
+                                <button class="cta-button cta-primary" onclick="downloadReport()" style="padding:12px 28px;font-size:0.8rem;">
+                                    DOWNLOAD PNG
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Trigger gauge animation + Pretext font-fit after DOM paint
+                setTimeout(() => {
+                    const arc = document.getElementById('gaugeArc');
+                    if (arc) arc.style.strokeDashoffset = String(arcLen * (1 - result.probability));
+                    ptFitGaugeText();
+                }, 60);
+
+                showToast('ANALYSIS COMPLETE');
+            } catch (error) {
+                resultContainer.innerHTML = `
+                    <div class="result-card" style="border-color: #ff3366;">
+                        <h4 style="color: #ff3366;">ERROR</h4>
+                        <p style="color: var(--text-secondary);">Could not complete analysis. Check server connection.</p>
+                    </div>
+                `;
+                showToast('ANALYSIS FAILED', 'error');
+            }
+        }
+
+        async function submitFeedback(outcome) {
+            try {
+                // Disable all feedback buttons immediately to prevent double-clicks
+                const feedbackButtons = document.querySelectorAll('.feedback-btn');
+                feedbackButtons.forEach(btn => {
+                    btn.disabled = true;
+                    btn.style.opacity = '0.5';
+                    btn.style.cursor = 'not-allowed';
+                });
+
+                const data = { ...lastPredictionData, actual_outcome: outcome };
+                const response = await fetch('/submit-feedback', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast('FEEDBACK SAVED');
+                    setTimeout(() => loadStats(), 500);
+
+                    // Replace the entire feedback section with confirmation
+                    const feedbackSection = document.querySelector('.feedback-section');
+                    if (feedbackSection) {
+                        feedbackSection.innerHTML = `
+                            <div style="padding: 40px; background: var(--bg-light); border-radius: 20px; border: 1.5px solid var(--accent); text-align: center;">
+                                <h4 style="color: var(--accent); margin-bottom: 14px; font-size: 1.4rem; font-weight: 900;">FEEDBACK SAVED</h4>
+                                <p style="color: var(--text-secondary); margin-bottom: 20px;">${result.message}</p>
+                                
+                                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 24px; padding: 24px; background: var(--bg-card); border-radius: 16px;">
+                                    <div>
+                                        <div style="font-size: 2rem; font-weight: 900; color: var(--accent);">${result.new_data_count}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em;">NEW SAMPLES</div>
+                                    </div>
+                                    <div>
+                                        <div style="font-size: 2rem; font-weight: 900; color: var(--accent);">${globalStats.retrain_threshold}</div>
+                                        <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 8px; text-transform: uppercase; letter-spacing: 0.1em;">THRESHOLD</div>
+                                    </div>
+                                </div>
+                                
+                                <div style="margin-top: 20px; padding: 14px 20px; background: ${result.prediction_was_correct ? 'rgba(0,168,85,0.08)' : 'rgba(204,17,68,0.08)'}; border: 1.5px solid ${result.prediction_was_correct ? 'var(--accent)' : '#cc1144'}; border-radius: 800px;">
+                                    <p style="color: ${result.prediction_was_correct ? 'var(--accent)' : '#cc1144'}; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.85rem;">
+                                        ${result.prediction_was_correct ? 'MODEL WAS CORRECT' : 'MODEL WILL LEARN'}
+                                    </p>
+                                    <p style="color: var(--text-secondary); margin-top: 6px; font-size: 0.82rem;">
+                                        Confidence: ${(result.confidence * 100).toFixed(1)}%
+                                    </p>
+                                </div>
+                                
+                                ${result.retrain_triggered ? `
+                                    <div style="margin-top: 20px; padding: 18px 24px; background: rgba(0,168,85,0.08); border: 1.5px solid var(--accent); border-radius: 16px;">
+                                        <p style="color: var(--accent); font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; font-size: 0.9rem;">
+                                            MODEL RETRAINING STARTED
+                                        </p>
+                                        <p style="color: var(--text-secondary); margin-top: 8px; font-size: 0.82rem;">
+                                            The model is being retrained with new data. This may take several minutes.
+                                        </p>
+                                    </div>
+                                ` : ''}
+                                
+                                <button class="cta-button cta-primary" onclick="document.getElementById('resultContainer').style.display='none';" style="width: 100%; margin-top: 28px; padding: 16px;">
+                                    NEW PREDICTION
+                                </button>
+                            </div>
+                        `;
+                    }
+                }
+            } catch (error) {
+                showToast('FEEDBACK FAILED', 'error');
+                // Re-enable buttons on error
+                const feedbackButtons = document.querySelectorAll('.feedback-btn');
+                feedbackButtons.forEach(btn => {
+                    btn.disabled = false;
+                    btn.style.opacity = '1';
+                    btn.style.cursor = 'pointer';
+                });
+            }
+        }
+
+        async function triggerRetrain() {
+            if (!confirm('Start model retraining? This will take several minutes.')) return;
+
+            try {
+                const response = await fetch('/trigger-retrain', { method: 'POST' });
+                const result = await response.json();
+
+                if (result.success) {
+                    showToast('RETRAINING STARTED');
+                    loadStats();
+                }
+            } catch (error) {
+                showToast('RETRAINING FAILED', 'error');
+            }
+        }
+
+
+        // Shared Plotly config
+        const PLOTLY_CONFIG = { responsive: true, displayModeBar: false, displaylogo: false };
+        const PLOTLY_THEME = {
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: '#F5F5F0',
+            font: { color: '#4A4A4A', family: 'DM Sans, sans-serif' }
+        };
+
+        // Reusable loading spinner HTML
+        function getLoadingHTML(text = 'LOADING...') {
+            return `<div class="viz-loading"><div class="loading"></div>
+                <p style="color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em;">${text}</p></div>`;
+        }
+
+        // Reusable error HTML
+        function getErrorHTML(message, retryFn) {
+            return `<div class="viz-loading">
+                <p style="color: #ff3366; text-transform: uppercase; letter-spacing: 0.1em;">⚠️ ${message}</p>
+                <button class="cta-button cta-primary" onclick="${retryFn}()" style="margin-top: 24px; padding: 16px 32px;">RETRY</button>
+            </div>`;
+        }
+
+        // Cache for visualization data (3D + risk profile share the same endpoint)
+        let vizDataCache = null;
+        async function getVisualizationData() {
+            if (!vizDataCache) {
+                const response = await fetch('/visualization-data');
+                if (!response.ok) throw new Error(`HTTP ${response.status}`);
+                vizDataCache = await response.json();
+            }
+            return vizDataCache;
+        }
+
+        // ── Feature name prettifier ────────────────────────────────────────────────
+        const FEATURE_LABELS = {
+            'Insulin_Zscore': 'Insulin Z-Score',
+            'Insulin_Squared': 'Insulin²',
+            'Insulin': 'Insulin',
+            'Log_Insulin': 'Log Insulin',
+            'SkinThickness': 'Skin Thickness',
+            'Insulin_Resistance_Index': 'Insulin Resistance Index',
+            'Glucose_BMI_Interaction': 'Glucose × BMI',
+            'Metabolic_Risk_Score': 'Metabolic Risk Score',
+            'Insulin_BMI_Ratio': 'Insulin / BMI Ratio',
+            'BMI_Age_Interaction': 'BMI × Age',
+            'Glucose_Age_Interaction': 'Glucose × Age',
+            'Glucose_Insulin_Ratio': 'Glucose / Insulin Ratio',
+            'DiabetesPedigreeFunction': 'Diabetes Pedigree',
+            'Glucose_Cubed': 'Glucose³',
+            'Log_Glucose': 'Log Glucose',
+            'Glucose': 'Glucose',
+            'BMI': 'BMI',
+            'Age': 'Age',
+            'BloodPressure': 'Blood Pressure',
+            'Pregnancies': 'Pregnancies',
+        };
+
+        // ── Category mapping → colour ─────────────────────────────────────────────
+        const FEATURE_CATEGORY = {
+            insulin: { color: '#00a855', label: 'Insulin' },
+            glucose: { color: '#0088cc', label: 'Glucose' },
+            metabolic: { color: '#e08800', label: 'Metabolic' },
+            body: { color: '#7744bb', label: 'Body / Other' },
+        };
+        function getCategory(name) {
+            const n = name.toLowerCase();
+            if (n.includes('insulin')) return 'insulin';
+            if (n.includes('glucose')) return 'glucose';
+            if (n.includes('metabolic') || n.includes('risk')) return 'metabolic';
+            return 'body';
+        }
+
+        async function loadFeatureImportance() {
+            const chartDiv = document.getElementById('featureChart');
+
+            try {
+                if (typeof Plotly === 'undefined') throw new Error('Plotly library not loaded.');
+
+                chartDiv.innerHTML = getLoadingHTML('LOADING CHART...');
+
+                const response = await fetch('/feature-importance');
+                if (!response.ok) throw new Error(`Server returned ${response.status}`);
+
+                const raw = await response.json();
+                if (!raw.features || !raw.importance || raw.features.length === 0)
+                    throw new Error('No feature data returned from server');
+
+                // Sort descending and take top 15
+                const paired = raw.features.map((f, i) => ({ name: f, val: raw.importance[i] }));
+                paired.sort((a, b) => b.val - a.val);
+                const top = paired.slice(0, 15);
+
+                const maxVal = top[0].val;
+
+                // Build per-category traces (so legend works) ─ reversed for horizontal
+                const cats = ['insulin', 'glucose', 'metabolic', 'body'];
+                const traces = cats.map(cat => {
+                    const pts = top.filter(p => getCategory(p.name) === cat);
+                    if (!pts.length) return null;
+                    const cfg = FEATURE_CATEGORY[cat];
+                    return {
+                        x: pts.map(p => p.val),
+                        y: pts.map(p => FEATURE_LABELS[p.name] || p.name.replace(/_/g, ' ')),
+                        customdata: pts.map(p => [(p.val * 100).toFixed(2) + '%']),
+                        type: 'bar',
+                        orientation: 'h',
+                        name: cfg.label,
+                        marker: {
+                            color: cfg.color,
+                            opacity: pts.map(p => 0.45 + 0.55 * (p.val / maxVal)), // intensity = importance
+                            line: { color: cfg.color, width: 0 }
+                        },
+                        hovertemplate:
+                            '<b>%{y}</b><br>' +
+                            'Category: ' + cfg.label + '<br>' +
+                            'Importance: %{customdata[0]}' +
+                            '<extra></extra>'
+                    };
+                }).filter(Boolean);
+
+                // Rank annotations on the y-axis tick area
+                const shapes = [];
+                const annots = [];
+
+                // Build sorted y-axis order (descending → reversed for h-bar)
+                const sortedY = top.map(p => FEATURE_LABELS[p.name] || p.name.replace(/_/g, ' ')).reverse();
+
+                chartDiv.innerHTML = '';
+
+                // ── Summary stat bar above the chart ──────────────────────────────
+                const topFeature = FEATURE_LABELS[top[0].name] || top[0].name.replace(/_/g, ' ');
+                const insulinPct = top.filter(p => getCategory(p.name) === 'insulin')
+                    .reduce((s, p) => s + p.val, 0) * 100;
+                const glucosePct = top.filter(p => getCategory(p.name) === 'glucose')
+                    .reduce((s, p) => s + p.val, 0) * 100;
+                // Remove any previously inserted summary bar
+                const existingSummary = document.getElementById('featureSummaryBar');
+                if (existingSummary) existingSummary.remove();
+
+                const summaryBar = document.createElement('div');
+                summaryBar.id = 'featureSummaryBar';
+                summaryBar.style.cssText = `
+                    display:grid; grid-template-columns: repeat(4,1fr); gap:16px;
+                    margin-bottom:20px;`;
+                summaryBar.innerHTML = [
+                    { label: 'TOP FEATURE', value: topFeature, color: '#00a855' },
+                    { label: 'INSULIN SHARE', value: insulinPct.toFixed(1) + '%', color: '#00a855' },
+                    { label: 'GLUCOSE SHARE', value: glucosePct.toFixed(1) + '%', color: '#0088cc' },
+                    { label: 'FEATURES SHOWN', value: `${top.length} / ${raw.features.length}`, color: '#888' },
+                ].map(s => `
+                    <div style="background:var(--bg-card);padding:20px 24px;border-radius:16px;box-shadow:0 2px 10px rgba(0,0,0,0.04);">
+                        <div style="font-size:0.6rem;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.12em;margin-bottom:8px;">${s.label}</div>
+                        <div style="font-size:1.1rem;font-weight:900;color:${s.color};letter-spacing:-0.01em;">${s.value}</div>
+                    </div>`).join('');
+                chartDiv.parentElement.insertBefore(summaryBar, chartDiv);
+
+                const layout = {
+                    ...PLOTLY_THEME,
+                    barmode: 'overlay',
+                    xaxis: {
+                        title: { text: 'Feature Importance', font: { color: '#666', size: 11 } },
+                        gridcolor: '#e5eaef', showgrid: true,
+                        zeroline: false, tickfont: { color: '#777', size: 10 },
+                        range: [0, maxVal * 1.18]   // room for percentage labels
+                    },
+                    yaxis: {
+                        categoryorder: 'array', categoryarray: sortedY,
+                        tickfont: { color: '#555', size: 11, family: 'DM Sans, sans-serif' },
+                        showgrid: false
+                    },
+                    legend: {
+                        x: 0.72, y: 0.02,
+                        bgcolor: 'rgba(255,255,255,0.9)',
+                        bordercolor: '#d8dde3', borderwidth: 1,
+                        font: { color: '#666', size: 11, family: 'DM Sans, sans-serif' }
+                    },
+                    annotations: annots,
+                    shapes,
+                    margin: { l: 200, r: 40, t: 20, b: 60 },
+                    height: Math.max(500, top.length * 38 + 80)
+                };
+
+                await Plotly.newPlot(chartDiv, traces, layout, PLOTLY_CONFIG);
+                window._ptLastTop = top; // stored for re-render after y-axis truncation relayout
+                // Pretext collision-free label overlay — runs after Plotly paints
+                chartDiv.on('plotly_afterplot', () => ptAddCollisionFreeLabels(chartDiv, top));
+                setTimeout(() => {
+                    ptAddCollisionFreeLabels(chartDiv, top);
+                    ptTruncateYAxisLabels(chartDiv, sortedY);
+                }, 80);
+                console.log('[SUCCESS] Feature importance chart loaded');
+                showToast('Chart loaded successfully', 'success');
+
+            } catch (error) {
+                console.error('[ERROR] Feature importance failed:', error);
+                chartDiv.innerHTML = `
+                    <div style="padding: 64px; text-align: center;">
+                        <p style="color: #ff3366; font-size: 1.5rem; font-weight: 900; margin-bottom: 24px; text-transform: uppercase; letter-spacing: 0.1em;">⚠️ CHART LOADING FAILED</p>
+                        <p style="color: var(--text-secondary); font-size: 1.1rem; margin-bottom: 32px; line-height: 1.8;">${error.message}</p>
+                        <button class="cta-button cta-primary" onclick="loadFeatureImportance()" style="margin-top: 24px; padding: 20px 48px; font-size: 1rem;">🔄 TRY AGAIN</button>
+                        <p style="margin-top: 32px; color: var(--text-secondary); font-size: 0.85rem;">Check browser console (F12) for details.</p>
+                    </div>
+                `;
+                showToast('Chart loading failed - check console', 'error');
+            }
+        }
+
+        let _scatter3dData = null;
+
+        const AXIS_LABELS = {
+            glucose: 'Glucose (mg/dL)',
+            bmi: 'BMI (kg/m²)',
+            age: 'Age (years)',
+            bloodPressure: 'Blood Pressure (mm Hg)',
+            insulin: 'Insulin (μU/mL)',
+        };
+
+        function render3dScatter(filter) {
+            if (!_scatter3dData) return;
+            const s = _scatter3dData;
+
+            const xKey = document.getElementById('ax3dX').value;
+            const yKey = document.getElementById('ax3dY').value;
+            const zKey = document.getElementById('ax3dZ').value;
+            const szKey = document.getElementById('ax3dSize').value;
+
+            // active filter state
+            if (filter) _scatter3dData._filter = filter;
+            const activeFilter = _scatter3dData._filter || 'both';
+
+            // button highlight
+            document.getElementById('btn3dH').style.opacity = activeFilter === 'diabetic' ? '0.3' : '1';
+            document.getElementById('btn3dD').style.opacity = activeFilter === 'healthy' ? '0.3' : '1';
+            document.getElementById('btn3dB').style.opacity = '1';
+
+            const normalize = arr => {
+                const mn = Math.min(...arr), mx = Math.max(...arr);
+                return arr.map(v => (v - mn) / (mx - mn + 0.001));
+            };
+
+            const sizeArr = szKey === 'uniform' ? s.glucose.map(() => 0.5) : normalize(s[szKey] || s.glucose);
+            const axisData = { glucose: s.glucose, bmi: s.bmi, age: s.age, bloodPressure: s.bloodPressure || s.glucose.map(() => 70), insulin: s.insulin || s.glucose.map(() => 79) };
+
+            const makeTrace = (label, outcomeVal, color, dimColor) => {
+                if (activeFilter === 'healthy' && outcomeVal === 1) return null;
+                if (activeFilter === 'diabetic' && outcomeVal === 0) return null;
+                const idx = s.outcome.map((o, i) => i).filter(i => s.outcome[i] === outcomeVal);
+                if (!idx.length) return null;
+                return {
+                    type: 'scatter3d',
+                    mode: 'markers',
+                    name: label,
+                    x: idx.map(i => axisData[xKey][i]),
+                    y: idx.map(i => axisData[yKey][i]),
+                    z: idx.map(i => axisData[zKey][i]),
+                    marker: {
+                        size: idx.map(i => 3.5 + sizeArr[i] * 6),
+                        color: idx.map(i => sizeArr[i]),
+                        colorscale: dimColor,
+                        opacity: 0.78,
+                        line: { width: 0 }
+                    },
+                    text: idx.map(i =>
+                        `<b>${label}</b><br>` +
+                        `${AXIS_LABELS[xKey]}: <b>${Math.round(axisData[xKey][i] * 10) / 10}</b><br>` +
+                        `${AXIS_LABELS[yKey]}: <b>${Math.round(axisData[yKey][i] * 10) / 10}</b><br>` +
+                        `${AXIS_LABELS[zKey]}: <b>${Math.round(axisData[zKey][i] * 10) / 10}</b>`
+                    ),
+                    hovertemplate: '%{text}<extra></extra>'
+                };
+            };
+
+            const traces = [
+                makeTrace('Healthy', 0, '#00a855', [[0, '#c8f0dc'], [0.5, '#33bb77'], [1, '#00a855']]),
+                makeTrace('Diabetic', 1, '#cc1144', [[0, '#ffd0da'], [0.5, '#ee4466'], [1, '#cc1144']]),
+            ].filter(Boolean);
+
+            const axStyle3d = title => ({
+                title: title,
+                titlefont: { color: '#4A4A4A', size: 11, family: 'DM Sans, sans-serif' },
+                tickfont: { color: '#666', size: 9, family: 'DM Sans, sans-serif' },
+                gridcolor: '#d8d8d0',
+                zerolinecolor: '#c0c0b8',
+                backgroundcolor: '#F0F0EA',
+                showbackground: true,
+            });
+
+            Plotly.react('scatter3dPlot', traces, {
+                paper_bgcolor: '#F5F5F0',
+                scene: {
+                    xaxis: axStyle3d(AXIS_LABELS[xKey]),
+                    yaxis: axStyle3d(AXIS_LABELS[yKey]),
+                    zaxis: axStyle3d(AXIS_LABELS[zKey]),
+                    bgcolor: '#F5F5F0',
+                    camera: { eye: { x: 1.5, y: 1.5, z: 0.9 } },
+                    aspectmode: 'cube',
+                },
+                legend: {
+                    x: 0.01, y: 0.98,
+                    bgcolor: 'rgba(245,245,240,0.92)',
+                    bordercolor: '#d8d8d0', borderwidth: 1,
+                    font: { color: '#4A4A4A', size: 12, family: 'DM Sans, sans-serif' }
+                },
+                margin: { l: 0, r: 0, t: 0, b: 0 },
+                font: { family: 'DM Sans, sans-serif' },
+                height: 580,
+            }, { responsive: true, displayModeBar: true, modeBarButtonsToRemove: ['toImage'], displaylogo: false });
+        }
+
+        async function load3DVisualization() {
+            const plotDiv = document.getElementById('scatter3dPlot');
+            try {
+                plotDiv.innerHTML = `<div class="viz-loading"><div class="loading"></div><p style="color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.1em;margin-top:16px;">LOADING 3D DATA...</p></div>`;
+                const data = await getVisualizationData();
+                _scatter3dData = data.scatter_3d;
+                _scatter3dData._filter = 'both';
+
+                const hCount = _scatter3dData.outcome.filter(o => o === 0).length;
+                const dCount = _scatter3dData.outcome.filter(o => o === 1).length;
+                document.getElementById('lbl3dH').textContent = hCount + ' patients';
+                document.getElementById('lbl3dD').textContent = dCount + ' patients';
+
+                plotDiv.innerHTML = '';
+                render3dScatter();
+                console.log('3D scatter loaded');
+            } catch (err) {
+                console.error('3D load error:', err);
+                plotDiv.innerHTML = getErrorHTML('ERROR LOADING 3D VIZ', 'load3DVisualization');
+                showToast('Failed to load 3D visualization', 'error');
+            }
+        }
+
+        async function loadRiskProfile() {
+            const donutDiv = document.getElementById('riskDonut');
+            const dist1 = document.getElementById('riskDist1');
+            const dist2 = document.getElementById('riskDist2');
+            const dist3 = document.getElementById('riskDist3');
+            const statsGrid = document.getElementById('riskStatsGrid');
+
+            try {
+                donutDiv.innerHTML = getLoadingHTML('');
+                dist1.innerHTML = getLoadingHTML('');
+                dist2.innerHTML = getLoadingHTML('');
+                dist3.innerHTML = getLoadingHTML('');
+
+                // Clear cache so fresh data loads
+                vizDataCache = null;
+                const data = await getVisualizationData();
+                const rp = data.risk_profile;
+
+                // --- Stats comparison grid ---
+                const metrics = [
+                    { label: 'AVG GLUCOSE', h: rp.stats.healthy.avg_glucose, d: rp.stats.diabetic.avg_glucose, unit: 'mg/dL' },
+                    { label: 'AVG BMI', h: rp.stats.healthy.avg_bmi, d: rp.stats.diabetic.avg_bmi, unit: 'kg/m²' },
+                    { label: 'AVG AGE', h: rp.stats.healthy.avg_age, d: rp.stats.diabetic.avg_age, unit: 'years' },
+                    { label: 'AVG BP', h: rp.stats.healthy.avg_bp, d: rp.stats.diabetic.avg_bp, unit: 'mm Hg' }
+                ];
+                statsGrid.innerHTML = metrics.map(m => `
+                    <div style="background: var(--bg-card); padding: 24px 20px; display: flex; flex-direction: column; justify-content: center; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.04);">
+                        <div style="font-size: 0.62rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.12em; margin-bottom: 14px; border-bottom: 1px solid var(--border); padding-bottom: 8px;">${m.label}</div>
+                        <div style="display: flex; align-items: baseline; gap: 12px;">
+                            <div style="flex: 1; text-align: center;">
+                                <div style="font-size: 1.7rem; font-weight: 900; color: #00a855; letter-spacing: -0.02em; line-height: 1;">${m.h}</div>
+                                <div style="font-size: 0.6rem; color: rgba(0,168,85,0.7); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px;">Healthy</div>
+                            </div>
+                            <div style="color: rgba(0,0,0,0.15); font-size: 1rem; font-weight: 300;">|</div>
+                            <div style="flex: 1; text-align: center;">
+                                <div style="font-size: 1.7rem; font-weight: 900; color: #cc1144; letter-spacing: -0.02em; line-height: 1;">${m.d}</div>
+                                <div style="font-size: 0.6rem; color: rgba(204,17,68,0.6); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 6px;">Diabetic</div>
+                            </div>
+                        </div>
+                        <div style="font-size: 0.55rem; color: var(--text-secondary); text-align: center; margin-top: 10px; letter-spacing: 0.06em;">${m.unit}</div>
+                    </div>
+                `).join('');
+
+                // --- Compact Donut chart ---
+                donutDiv.innerHTML = '';
+                const donutTrace = {
+                    values: [rp.healthy_count, rp.diabetic_count],
+                    labels: ['Healthy', 'Diabetic'],
+                    type: 'pie', hole: 0.6,
+                    marker: { colors: ['#00a855', '#cc1144'], line: { color: '#ffffff', width: 2 } },
+                    textinfo: 'label+percent',
+                    textfont: { color: '#333', size: 11, family: 'DM Sans, sans-serif' },
+                    hovertemplate: '<b>%{label}</b><br>%{value} patients (%{percent})<extra></extra>',
+                    pull: [0, 0.03]
+                };
+                Plotly.newPlot('riskDonut', [donutTrace], {
+                    ...PLOTLY_THEME,
+                    showlegend: false,
+                    margin: { l: 30, r: 30, t: 30, b: 20 },
+                    annotations: [{
+                        text: `<b>${rp.total}</b><br><span style="font-size:11px;color:#888">PATIENTS</span>`,
+                        showarrow: false, font: { size: 22, color: '#111', family: 'DM Sans, sans-serif' }, x: 0.5, y: 0.5
+                    }]
+                }, PLOTLY_CONFIG);
+
+                // --- 3 Individual distribution charts ---
+                const charts = [
+                    { div: 'riskDist1', key: 'glucose', title: 'GLUCOSE', unit: 'mg/dL', range: [0, 210], bins: 20 },
+                    { div: 'riskDist2', key: 'bmi', title: 'BMI', unit: 'kg/m²', range: [10, 60], bins: 18 },
+                    { div: 'riskDist3', key: 'age', title: 'AGE', unit: 'years', range: [15, 85], bins: 20 }
+                ];
+
+                charts.forEach((cfg, i) => {
+                    document.getElementById(cfg.div).innerHTML = '';
+                    const healthyTrace = {
+                        x: rp[cfg.key].healthy, type: 'histogram', name: 'Healthy',
+                        marker: { color: 'rgba(0, 168, 85, 0.45)', line: { color: '#00a855', width: 1 } },
+                        opacity: 0.8, nbinsx: cfg.bins, showlegend: true,
+                        hovertemplate: `Healthy<br>${cfg.title}: %{x}<br>Count: %{y}<extra></extra>`
+                    };
+                    const diabeticTrace = {
+                        x: rp[cfg.key].diabetic, type: 'histogram', name: 'Diabetic',
+                        marker: { color: 'rgba(204, 17, 68, 0.4)', line: { color: '#cc1144', width: 1 } },
+                        opacity: 0.8, nbinsx: cfg.bins, showlegend: true,
+                        hovertemplate: `Diabetic<br>${cfg.title}: %{x}<br>Count: %{y}<extra></extra>`
+                    };
+                    const layout = {
+                        ...PLOTLY_THEME, barmode: 'overlay',
+                        title: { text: `${cfg.title} <span style="font-size:11px;color:#999">(${cfg.unit})</span>`, font: { size: 14, color: '#4A4A4A', family: 'DM Sans, sans-serif' }, x: 0.5, y: 0.97 },
+                        xaxis: { title: { text: cfg.unit, font: { size: 10, color: '#666' } }, range: cfg.range, tickfont: { color: '#666', size: 10 }, gridcolor: '#e8e8e0', zeroline: false, showgrid: false },
+                        yaxis: { title: { text: 'Count', font: { size: 10, color: '#666' } }, tickfont: { color: '#666', size: 10 }, gridcolor: '#e8e8e0', zeroline: false, showgrid: true },
+                        legend: { x: 0.65, y: 0.95, font: { color: '#4A4A4A', size: 10, family: 'DM Sans, sans-serif' }, bgcolor: 'rgba(255,255,255,0)' },
+                        margin: { l: 50, r: 20, t: 40, b: 50 }
+                    };
+                    Plotly.newPlot(cfg.div, [healthyTrace, diabeticTrace], layout, PLOTLY_CONFIG);
+                });
+
+                console.log('Risk profile loaded successfully');
+
+                // Fix for Plotly in CSS Grid: force a resize event after grid layout settles
+                setTimeout(() => {
+                    window.dispatchEvent(new Event('resize'));
+                    ['riskDonut', 'riskDist1', 'riskDist2', 'riskDist3'].forEach(id => {
+                        try { Plotly.Plots.resize(document.getElementById(id)); } catch (e) { }
+                    });
+                }, 150);
+
+            } catch (error) {
+                console.error('Error loading risk profile:', error);
+                donutDiv.innerHTML = getErrorHTML('ERROR LOADING RISK PROFILE', 'loadRiskProfile');
+                [dist1, dist2, dist3].forEach(d => d.innerHTML = '');
+                showToast('Failed to load risk profile', 'error');
+            }
+        }
+
+        // ════════════════════════════════════════════════════════════════
+        // PRETEXT ENHANCEMENTS
+        // ════════════════════════════════════════════════════════════════
+
+        // ── Helpers ──────────────────────────────────────────────────────
+        // Safe canvas measureText fallback when Pretext is not yet loaded
+        function ptMeasureWidth(text, font) {
+            const c = document.createElement('canvas');
+            return c.getContext('2d').measureText(text).width;
+        }
+
+        // ── Enhancement 1: Smart Label Truncation ─────────────────────────
+        // Uses Pretext prepare()+layout() to detect overflow *before* paint.
+        // Falls back to canvas measureText if Pretext unavailable.
+        function ptSmartTruncate(el, text, maxWidth, font) {
+            if (!el) return;
+            el.classList.add('pt-label');
+            el.title = text;
+
+            const canTruncate = (t) => {
+                try {
+                    if (window.pretext && pretext.prepare && pretext.layout) {
+                        const p = pretext.prepare(t, font);
+                        const { height } = pretext.layout(p, maxWidth, 20);
+                        return height > 22; // more than 1 line = overflow
+                    }
+                    // fallback: canvas measure
+                    const c = document.createElement('canvas');
+                    const ctx = c.getContext('2d');
+                    ctx.font = font;
+                    return ctx.measureText(t).width > maxWidth;
+                } catch(e) {
+                    return false;
+                }
+            };
+
+            if (!canTruncate(text)) {
+                el.textContent = text;
+                el.dataset.truncated = 'false';
+                return;
+            }
+
+            // Binary search for longest fitting prefix
+            let lo = 0, hi = text.length, best = '';
+            while (lo <= hi) {
+                const mid = (lo + hi) >> 1;
+                const candidate = text.slice(0, mid);
+                if (!canTruncate(candidate + '…')) { best = candidate; lo = mid + 1; }
+                else hi = mid - 1;
+            }
+            el.textContent = (best || text.slice(0, 12)) + '…';
+            el.dataset.truncated = 'true';
+        }
+
+        // ── Enhancement 2: Virtual Patient List ───────────────────────────
+        // Pretext computes exact row text heights without touching the DOM.
+        // We then batch-render only visible rows — true virtualization.
+        const PT_ROW_HEIGHT = 49;
+        const PT_ROW_FONT   = '500 13px DM Sans, sans-serif';
+        let   ptPatients    = [];
+        let   ptScrollBound = false;
+
+        function ptGeneratePatients(count = 768) {
+            // Deterministic synthetic patient cohort
+            const clusterNames = [
+                'Low-Risk Metabolic', 'Borderline Glucose', 'Insulin Resistant',
+                'High-Risk Obese', 'Young Pre-Diabetic', 'Controlled Type-2',
+                'Post-Gestational Risk', 'Senior Hypertensive'
+            ];
+            const results = [];
+            for (let i = 0; i < count; i++) {
+                const seed   = (i * 6364136223846793005 + 1442695040888963407) >>> 0;
+                const r      = () => { const s = (seed * (i + 17) * 0xdeadbeef) >>> 0; return (s % 1000) / 1000; };
+                const isDiab = r() > 0.65;
+                const glucose = isDiab ? 140 + Math.round(r() * 80) : 75 + Math.round(r() * 55);
+                const bmi     = isDiab ? 27 + (r() * 18).toFixed(1) : 19 + (r() * 10).toFixed(1);
+                const age     = isDiab ? 35 + Math.round(r() * 35) : 22 + Math.round(r() * 28);
+                const cluster = clusterNames[Math.round(r() * (clusterNames.length - 1))];
+                results.push({ id: `PAT-${String(i+1).padStart(4,'0')}`, cluster, glucose, bmi: parseFloat(bmi), age, diabetic: isDiab });
+            }
+            return results;
+        }
+
+        function ptRenderVisibleRows(container, patients, scrollTop, viewportH) {
+            const start = Math.max(0, Math.floor(scrollTop / PT_ROW_HEIGHT) - 2);
+            const end   = Math.min(patients.length, start + Math.ceil(viewportH / PT_ROW_HEIGHT) + 4);
+
+            // Spacer to maintain scroll height
+            const totalH = patients.length * PT_ROW_HEIGHT;
+            container.style.height = totalH + 'px';
+            container.style.position = 'relative';
+
+            // Measure each visible row's cluster name with Pretext for truncation
+            const MAX_CLUSTER_W = 160;
+            const t0 = performance.now();
+
+            let html = '';
+            for (let i = start; i < end; i++) {
+                const p = patients[i];
+
+                // Smart truncate cluster text using Pretext measurement
+                let clusterDisplay = p.cluster;
+                try {
+                    if (window.pretext && pretext.prepare) {
+                        const prepared = pretext.prepare(p.cluster, PT_ROW_FONT);
+                        const { height } = pretext.layout(prepared, MAX_CLUSTER_W, 18);
+                        if (height > 20) {
+                            // Need truncation — find fit
+                            let best = p.cluster;
+                            for (let l = p.cluster.length; l > 4; l--) {
+                                const t2 = pretext.prepare(p.cluster.slice(0, l) + '…', PT_ROW_FONT);
+                                const h2 = pretext.layout(t2, MAX_CLUSTER_W, 18);
+                                if (h2.height <= 20) { best = p.cluster.slice(0, l) + '…'; break; }
+                            }
+                            clusterDisplay = best;
+                        }
+                    }
+                } catch(e) { /* fallback: no truncation */ }
+
+                const top = i * PT_ROW_HEIGHT;
+                html += `<div class="pt-vrow" style="position:absolute;top:${top}px;left:0;right:0;">
+                    <span style="color:var(--text-secondary);font-size:0.7rem;font-weight:700;">${i+1}</span>
+                    <span title="${p.cluster}" style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis;">
+                        <span style="font-weight:700;font-size:0.83rem;">${p.id}</span>
+                        <span style="display:block;font-size:0.67rem;color:var(--text-secondary);margin-top:1px;">${clusterDisplay}</span>
+                    </span>
+                    <span style="font-weight:700;color:${p.glucose > 140 ? '#cc1144' : p.glucose > 100 ? '#e08000' : 'var(--text-primary)'};">${p.glucose}</span>
+                    <span>${p.bmi.toFixed(1)}</span>
+                    <span>${p.age}</span>
+                    <span><span class="pt-badge ${p.diabetic ? 'pt-badge-risk' : 'pt-badge-safe'}">${p.diabetic ? 'RISK' : 'SAFE'}</span></span>
+                </div>`;
+            }
+            container.innerHTML = html;
+
+            const elapsed = (performance.now() - t0).toFixed(2);
+            const badge = document.getElementById('ptPerfBadge');
+            if (badge) badge.textContent = `⚡ Pretext: ${elapsed}ms layout (${end - start} rows)`;
+        }
+
+        function ptInitVirtualList() {
+            ptPatients = ptGeneratePatients(768);
+            const listEl  = document.getElementById('ptVirtualList');
+            const rowsEl  = document.getElementById('ptVirtualRows');
+            const countEl = document.getElementById('ptListCount');
+            if (!listEl || !rowsEl) return;
+
+            if (countEl) countEl.textContent = `${ptPatients.length} patients · virtualized`;
+
+            ptRenderVisibleRows(rowsEl, ptPatients, 0, listEl.clientHeight);
+
+            if (!ptScrollBound) {
+                ptScrollBound = true;
+                listEl.addEventListener('scroll', () => {
+                    ptRenderVisibleRows(rowsEl, ptPatients, listEl.scrollTop, listEl.clientHeight);
+                });
+            }
+        }
+
+        // ── Enhancement 3 & 4: Canvas Patient Report ──────────────────────
+        // Pretext lays out multi-line report text on canvas — no DOM reflow.
+        // Adaptive column layout computed via layoutWithLines().
+        let ptLastResult = null;
+        let ptLastInput  = null;
+
+        function ptRenderCanvasReport(result, input) {
+            ptLastResult = result;
+            ptLastInput  = input;
+
+            const section = document.getElementById('ptReportSection');
+            const canvas  = document.getElementById('ptReportCanvas');
+            if (!section || !canvas) return;
+
+            // Set canvas width from its CSS container width
+            const W = canvas.parentElement.clientWidth - 72 || 600;
+            canvas.width  = W;
+            canvas.height = 340;
+            const ctx = canvas.getContext('2d');
+
+            // Background
+            ctx.fillStyle = '#ffffff';
+            ctx.roundRect(0, 0, W, 340, 16);
+            ctx.fill();
+
+            // Header bar
+            const isDiab   = result.prediction === 1;
+            const riskColor = isDiab ? '#cc1144' : '#00a855';
+            ctx.fillStyle = isDiab ? 'rgba(204,17,68,0.06)' : 'rgba(0,168,85,0.06)';
+            ctx.roundRect(0, 0, W, 68, [16, 16, 0, 0]);
+            ctx.fill();
+
+            // Header text — Pretext measures before drawing
+            ctx.fillStyle = riskColor;
+            ctx.font = '700 11px DM Sans, sans-serif';
+            ctx.letterSpacing = '0.15em';
+            ctx.fillText('MEDAI · PATIENT ASSESSMENT REPORT', 24, 24);
+
+            ctx.fillStyle = '#0C121A';
+            ctx.font = '900 22px DM Sans, sans-serif';
+            ctx.letterSpacing = '-0.02em';
+            ctx.fillText(isDiab ? 'HIGH RISK — DIABETES DETECTED' : 'LOW RISK — NO DIABETES DETECTED', 24, 52);
+
+            // Divider
+            ctx.strokeStyle = 'rgba(0,0,0,0.07)';
+            ctx.lineWidth   = 1;
+            ctx.beginPath(); ctx.moveTo(0, 68); ctx.lineTo(W, 68); ctx.stroke();
+
+            // Two columns of metrics
+            const metrics = [
+                { label: 'Risk Probability', value: `${(result.probability * 100).toFixed(1)}%` },
+                { label: 'Model Confidence', value: `${(result.confidence * 100).toFixed(1)}%` },
+                { label: 'Metabolic Score',  value: result.metabolic_score.toFixed(2) },
+                { label: 'Risk Cluster',     value: result.cluster_name },
+                { label: 'Glucose',          value: `${input.glucose} mg/dL` },
+                { label: 'BMI',              value: `${input.bmi.toFixed(1)} kg/m²` },
+                { label: 'Age',              value: `${input.age} years` },
+                { label: 'Blood Pressure',   value: `${input.bloodPressure} mm Hg` },
+            ];
+
+            const COL = Math.floor(W / 2) - 16;
+            const COL2_X = Math.floor(W / 2) + 8;
+            const ROW_H  = 52;
+            const START_Y = 88;
+
+            metrics.forEach((m, idx) => {
+                const col  = idx % 2;
+                const row  = Math.floor(idx / 2);
+                const x    = col === 0 ? 24 : COL2_X;
+                const y    = START_Y + row * ROW_H;
+                const maxW = COL - 8;
+
+                // Label — Pretext measures, truncates if needed
+                let labelText = m.label.toUpperCase();
+                try {
+                    if (window.pretext && pretext.prepare) {
+                        const p = pretext.prepare(labelText, '700 9px DM Sans, sans-serif');
+                        const { height } = pretext.layout(p, maxW, 14);
+                        if (height > 14) labelText = labelText.slice(0, 16) + '…';
+                    }
+                } catch(e) {}
+
+                ctx.fillStyle = '#999999';
+                ctx.font = '700 9px DM Sans, sans-serif';
+                ctx.letterSpacing = '0.1em';
+                ctx.fillText(labelText, x, y);
+
+                // Value — Pretext wraps if long (e.g. cluster name)
+                ctx.fillStyle = '#0C121A';
+                ctx.font = '800 16px DM Sans, sans-serif';
+                ctx.letterSpacing = '-0.01em';
+
+                let valueLines = [m.value];
+                try {
+                    if (window.pretext && pretext.prepareWithSegments && pretext.layoutWithLines) {
+                        const p = pretext.prepareWithSegments(m.value, '800 16px DM Sans, sans-serif');
+                        const { lines } = pretext.layoutWithLines(p, maxW, 20);
+                        valueLines = lines.map(l => l.text);
+                    }
+                } catch(e) {}
+
+                valueLines.forEach((line, li) => {
+                    ctx.fillText(line, x, y + 18 + li * 19);
+                });
+            });
+
+            // Footer
+            ctx.fillStyle = 'rgba(0,0,0,0.04)';
+            ctx.fillRect(0, 300, W, 40);
+            ctx.fillStyle = '#aaaaaa';
+            ctx.font = '400 10px DM Sans, sans-serif';
+            ctx.letterSpacing = '0.05em';
+            const now = new Date().toLocaleString('en-IN', { dateStyle: 'medium', timeStyle: 'short' });
+            ctx.fillText(`Generated: ${now}  ·  For Research Use Only  ·  MedAI 2026`, 24, 324);
+        }
+
+        function downloadReport() {
+            const canvas = document.getElementById('ptReportCanvas');
+            if (!canvas) return;
+            const a = document.createElement('a');
+            a.download = 'medai-patient-report.png';
+            a.href = canvas.toDataURL('image/png');
+            a.click();
+        }
+
+        // ── Enhancement: Balanced stat labels on stat cards ───────────────
+        // Pretext measureNaturalWidth() finds the minimum container width
+        // so stat card labels never wrap awkwardly.
+        function ptBalanceStatLabels() {
+            document.querySelectorAll('.stat-label').forEach(el => {
+                const text = el.textContent.trim();
+                if (!text) return;
+                el.classList.add('pt-balanced-label');
+                try {
+                    if (window.pretext && pretext.prepareWithSegments && pretext.measureNaturalWidth) {
+                        const p = pretext.prepareWithSegments(text, '600 11px DM Sans, sans-serif');
+                        const naturalW = pretext.measureNaturalWidth(p);
+                        // Set min-width to natural width so single-word labels stay on one line
+                        el.style.minWidth = Math.ceil(naturalW) + 'px';
+                    }
+                } catch(e) {}
+            });
+        }
+
+        // ── Wire everything up ────────────────────────────────────────────
+        // Patch analyzePrediction to draw canvas report after result loads
+        const _origAnalyze = analyzePrediction;
+        window.analyzePrediction = async function() {
+            await _origAnalyze.call(this);
+            // Give DOM a tick to stamp the canvas element
+            setTimeout(() => {
+                if (ptLastResult && ptLastInput) return; // already drawn via patch below
+                // result drawn via patched fetch in inline override
+            }, 200);
+        };
+
+        // Patch the result render to call canvas draw
+        const _origFetch = window.fetch;
+        window.fetch = async function(...args) {
+            const resp = await _origFetch(...args);
+            if (typeof args[0] === 'string' && args[0].includes('/predict')) {
+                const clone = resp.clone();
+                clone.json().then(result => {
+                    ptLastResult = result;
+                    ptLastInput  = { ...lastPredictionData };
+                    setTimeout(() => ptRenderCanvasReport(result, ptLastInput), 120);
+                }).catch(() => {});
+            }
+            return resp;
+        };
+
+        // Initialize virtual list on load
+        window.addEventListener('load', () => {
+            ptInitVirtualList();
+            ptBalanceStatLabels();
+
+            // Apply smart truncation to feature card descriptions
+            document.querySelectorAll('.feature-description').forEach(el => {
+                const text = el.textContent.trim();
+                ptSmartTruncate(el, text, el.parentElement.clientWidth - 72, '300 14.7px DM Sans, sans-serif');
+            });
+        });
+
+        // ── Pretext #2: Gauge percentage auto-fit ─────────────────────────────
+        //
+        //  The gauge SVG uses font-size="44" for the centre percentage.
+        //  "100.0%" is ~30% wider than "9.8%" at the same size — without this,
+        //  larger values overflow the arc. Pretext measures the exact rendered
+        //  width and steps the font down (44 → 20px) until it fits within the
+        //  160px safe zone inside the arc, then nudges Y so it stays vertically
+        //  centred in the gauge bowl.
+
+        function ptFitGaugeText() {
+            const el = document.getElementById('gaugePctText');
+            if (!el || !window.pretext) return;
+            try {
+                const text      = el.textContent.trim();
+                const MAX_W     = 160;   // px — safe width inside arc (r=110, stroke=16)
+                const BASE_SIZE = 44;
+                const MIN_SIZE  = 20;
+                const BASE_Y    = 122;
+
+                let fontSize = BASE_SIZE;
+                while (fontSize > MIN_SIZE) {
+                    const p = pretext.prepareWithSegments(text, `900 ${fontSize}px DM Sans,sans-serif`);
+                    if (pretext.measureNaturalWidth(p) <= MAX_W) break;
+                    fontSize -= 2;
+                }
+
+                el.setAttribute('font-size', fontSize);
+                // Re-centre vertically: smaller font sits higher, nudge it back down
+                el.setAttribute('y', (BASE_Y + (BASE_SIZE - fontSize) * 0.28).toFixed(1));
+            } catch (e) {}
+        }
+
+        // ── Pretext #1: Y-axis label exact-pixel truncation ───────────────────
+        //
+        //  Feature names like "Insulin Resistance Index" are data-driven and
+        //  can be arbitrarily long. Pretext measures each label's natural width
+        //  in the exact Plotly tick font (DM Sans 11px), then binary-searches
+        //  for the longest prefix that fits inside the left margin with a
+        //  trailing ellipsis — no CSS overflow, no guessing.
+
+        function ptTruncateYAxisLabels(gd, sortedY) {
+            if (!window.pretext || !gd._fullLayout) return;
+            try {
+                const MARGIN    = (gd._fullLayout.margin?.l || 200) - 14; // 14px right-padding
+                const TICK_FONT = '400 11px DM Sans,sans-serif';
+
+                const truncated = sortedY.map(label => {
+                    const p = pretext.prepareWithSegments(label, TICK_FONT);
+                    if (pretext.measureNaturalWidth(p) <= MARGIN) return label;
+
+                    // Binary search: longest prefix + '…' that fits
+                    let lo = 1, hi = label.length - 1;
+                    while (lo < hi) {
+                        const mid = Math.floor((lo + hi + 1) / 2);
+                        const candidate = label.slice(0, mid) + '…';
+                        const pw = pretext.measureNaturalWidth(
+                            pretext.prepareWithSegments(candidate, TICK_FONT)
+                        );
+                        if (pw <= MARGIN) lo = mid; else hi = mid - 1;
+                    }
+                    return label.slice(0, lo) + '…';
+                });
+
+                // Only relayout if something actually changed
+                if (truncated.some((t, i) => t !== sortedY[i])) {
+                    Plotly.relayout(gd, {
+                        'yaxis.ticktext': truncated,
+                        'yaxis.tickvals': sortedY
+                    });
+                    // Re-run collision overlay after relayout repaints
+                    gd.once('plotly_afterplot', () => ptAddCollisionFreeLabels(gd, window._ptLastTop));
+                }
+            } catch (e) {
+                console.warn('[Pretext] Y-axis truncation failed:', e);
+            }
+        }
+
+        // ── Pretext: Collision-free percentage labels on Feature Importance chart ──
+        //
+        //  How it works:
+        //  1. After Plotly renders, query every bar <path> for its real pixel position
+        //  2. Use Pretext measureNaturalWidth() to get each label's exact pixel width
+        //     (this is the key — no DOM reflow, font-metrics computed in one pass)
+        //  3. Sort labels by Y, then run an iterative 1-D sweep to push
+        //     overlapping labels apart (10 passes, converges in 2-3 for 15 bars)
+        //  4. Draw an SVG overlay: pill background + label text + dashed
+        //     connector line back to the original bar position if nudged
+
+        function ptAddCollisionFreeLabels(gd, top) {
+            gd.querySelector('.pt-label-overlay')?.remove();
+            if (!window.pretext || !gd._fullLayout) return;
+
+            try {
+                const chartRect = gd.getBoundingClientRect();
+                const W = gd.offsetWidth, H = gd.offsetHeight;
+
+                // ── Step 1: collect real bar positions from the rendered SVG ──
+                const allPaths = [...gd.querySelectorAll('g.trace.bars path')];
+                const barRects = allPaths
+                    .map(p => ({ r: p.getBoundingClientRect() }))
+                    .filter(({ r }) => r.width > 2 && r.height > 5)
+                    .map(({ r }) => ({
+                        x:  r.right  - chartRect.left,          // right edge → label starts here
+                        cy: (r.top + r.bottom) / 2 - chartRect.top  // vertical centre of bar
+                    }));
+
+                if (!barRects.length) return;
+
+                // Sort top-to-bottom (most important bar is at the top)
+                barRects.sort((a, b) => a.cy - b.cy);
+
+                // ── Step 2: measure each label with Pretext ────────────────
+                const FONT = '700 11px DM Sans, sans-serif';
+                const PILL_H = 16, PILL_PAD = 10;
+
+                const labels = barRects.map((br, i) => {
+                    const feat = top[i];
+                    if (!feat) return null;
+                    const text  = (feat.val * 100).toFixed(1) + '%';
+                    const color = FEATURE_CATEGORY[getCategory(feat.name)].color;
+
+                    let w = text.length * 7.5; // safe fallback
+                    try {
+                        const prepared = pretext.prepareWithSegments(text, FONT);
+                        w = Math.ceil(pretext.measureNaturalWidth(prepared)) + PILL_PAD * 2;
+                    } catch (_) {}
+
+                    return { x: br.x + 8, origY: br.cy, y: br.cy, w, h: PILL_H, text, color };
+                }).filter(Boolean);
+
+                // ── Step 3: iterative collision resolution ─────────────────
+                //   Simple sweep: if two adjacent labels overlap, push each
+                //   half the overlap away. Repeat until stable (≤10 passes).
+                const GAP = 3; // min px gap between pills
+                for (let pass = 0; pass < 10; pass++) {
+                    let changed = false;
+                    for (let i = 1; i < labels.length; i++) {
+                        const a = labels[i - 1], b = labels[i];
+                        const overlap = (a.y + a.h / 2 + GAP) - (b.y - b.h / 2);
+                        if (overlap > 0.5) {
+                            a.y -= overlap / 2;
+                            b.y += overlap / 2;
+                            changed = true;
+                        }
+                    }
+                    if (!changed) break;
+                }
+
+                // ── Step 4: build SVG overlay ──────────────────────────────
+                const NS = 'http://www.w3.org/2000/svg';
+                const svg = document.createElementNS(NS, 'svg');
+                svg.className = 'pt-label-overlay';
+                Object.assign(svg.style, {
+                    position: 'absolute', top: '0', left: '0',
+                    width: W + 'px', height: H + 'px',
+                    pointerEvents: 'none', zIndex: '10', overflow: 'visible'
+                });
+
+                const mk = (tag, attrs) => {
+                    const el = document.createElementNS(NS, tag);
+                    Object.entries(attrs).forEach(([k, v]) => el.setAttribute(k, v));
+                    return el;
+                };
+
+                labels.forEach(l => {
+                    const nudged = Math.abs(l.y - l.origY) > 1.5;
+
+                    // Dashed connector line back to the bar when label was moved
+                    if (nudged) {
+                        svg.appendChild(mk('line', {
+                            x1: l.x - 4,   y1: l.origY,
+                            x2: l.x - 4,   y2: l.y,
+                            stroke: l.color,
+                            'stroke-width': 1.5,
+                            'stroke-opacity': 0.38,
+                            'stroke-dasharray': '2,2'
+                        }));
+                        // Dot at bar attachment point
+                        svg.appendChild(mk('circle', {
+                            cx: l.x - 4, cy: l.origY, r: 2.5,
+                            fill: l.color, 'fill-opacity': 0.5
+                        }));
+                    }
+
+                    // Pill background
+                    svg.appendChild(mk('rect', {
+                        x: l.x - 1, y: l.y - l.h / 2,
+                        width: l.w, height: l.h, rx: 5,
+                        fill: l.color, 'fill-opacity': nudged ? 0.16 : 0.1
+                    }));
+
+                    // Label text
+                    const txt = document.createElementNS(NS, 'text');
+                    Object.entries({
+                        x: l.x + PILL_PAD - 1, y: l.y + 4.5,
+                        fill: l.color,
+                        'font-family': 'DM Sans, sans-serif',
+                        'font-size': 11, 'font-weight': 700,
+                        'letter-spacing': '0.02em'
+                    }).forEach(([k, v]) => txt.setAttribute(k, v));
+                    txt.textContent = l.text;
+                    svg.appendChild(txt);
+                });
+
+                gd.style.position = 'relative';
+                gd.appendChild(svg);
+
+            } catch (e) {
+                console.warn('[Pretext] Collision overlay failed:', e);
+            }
+        }
+
+        // Initialize
+        window.addEventListener('load', () => {
+            console.log('Dashboard initialized');
+            initSliders();
+            loadStats();
+            setInterval(loadStats, 5000);
+        });
+    </script>
+
+    <!-- Warwick-style Footer -->
+    <footer style="background: var(--bg-dark); border-radius: var(--radius-section) var(--radius-section) 0 0; margin-top: 0; padding: 80px 72px 48px; color: var(--text-light);">
+        <div style="max-width: 1320px; margin: 0 auto;">
+            <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 64px;">
+                <div>
+                    <div style="font-size: 1.2rem; font-weight: 700; color: var(--accent); letter-spacing: 0.08em; margin-bottom: 20px; display:flex; align-items:center; gap:10px;">
+                        <span style="width:8px;height:8px;background:var(--accent);border-radius:50%;display:inline-block;"></span>
+                        MEDAI
+                    </div>
+                    <p style="color: var(--text-muted); font-size: 0.9rem; line-height: 1.8; max-width: 280px; font-weight: 300;">
+                        AI-powered diabetes prediction with real-time model retraining, ensemble learning, and advanced visualization.
+                    </p>
+                </div>
+                <div>
+                    <div style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;">Platform</div>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <a href="#dashboard" style="color:rgba(255,255,255,0.45); text-decoration:none; font-size:0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Dashboard</a>
+                        <a href="#analysis" style="color:rgba(255,255,255,0.45); text-decoration:none; font-size:0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Analytics</a>
+                        <a href="#features" style="color:rgba(255,255,255,0.45); text-decoration:none; font-size:0.88rem; transition: color 0.2s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='rgba(255,255,255,0.45)'">Features</a>
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;">Model</div>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <span style="color:rgba(255,255,255,0.45); font-size:0.88rem;">Ensemble Learning</span>
+                        <span style="color:rgba(255,255,255,0.45); font-size:0.88rem;">Real-Time Retrain</span>
+                        <span style="color:rgba(255,255,255,0.45); font-size:0.88rem;">43+ Features</span>
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px;">Stack</div>
+                    <div style="display:flex; flex-direction:column; gap:12px;">
+                        <span style="color:rgba(255,255,255,0.45); font-size:0.88rem;">XGBoost</span>
+                        <span style="color:rgba(255,255,255,0.45); font-size:0.88rem;">Random Forest</span>
+                        <span style="color:rgba(255,255,255,0.45); font-size:0.88rem;">Plotly.js</span>
+                    </div>
+                </div>
+            </div>
+            <div style="border-top: 1px solid rgba(255,255,255,0.07); padding-top: 32px; display:flex; justify-content:space-between; align-items:center;">
+                <span style="color: rgba(255,255,255,0.25); font-size: 0.78rem; letter-spacing: 0.06em;">© 2026 MEDAI — Advanced Medical Analytics</span>
+                <span style="color: rgba(255,255,255,0.2); font-size: 0.72rem; letter-spacing: 0.08em; text-transform: uppercase;">For Research Use Only</span>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
